@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="370.0" layoutY="80.0" mnemonicParsing="false" text="Sök" />
+      <TextField layoutX="187.0" layoutY="104.0" />
+      <Label layoutX="223.0" layoutY="34.0" text="Sök efter Kund" />
+      <ChoiceBox layoutX="187.0" layoutY="67.0" prefWidth="150.0" />
+      <TableView layoutX="23.0" layoutY="140.0" prefHeight="238.0" prefWidth="556.0">
+        <columns>
+          <TableColumn prefWidth="101.0" text="Förnamn" />
+          <TableColumn prefWidth="106.0" text="Efternamn" />
+            <TableColumn prefWidth="163.0" text="Telefon" />
+            <TableColumn prefWidth="185.0" text="Email" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
