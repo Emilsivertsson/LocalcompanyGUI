@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="SaveCustomerAndOrderButton" layoutX="223.0" layoutY="441.0" mnemonicParsing="false" text="Spara ny Kund och ny order" />
-      <TextField fx:id="FirstnamnField" layoutX="127.0" layoutY="119.0" promptText="Förnamn" />
-      <Label layoutX="219.0" layoutY="63.0" text="Lägg till ny kund">
+      <Button fx:id="SaveCustomerAndOrderButton" layoutX="217.0" layoutY="240.0" mnemonicParsing="false" text="Spara ny Kund och ny order" />
+      <TextField fx:id="FirstnamnField" layoutX="134.0" layoutY="84.0" />
+      <Label layoutX="178.0" layoutY="28.0" text="Lägg till ny kund och Order">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="123.0" text="Förnamn" />
-      <Label layoutX="43.0" layoutY="157.0" text="Efternamn" />
-      <Label layoutX="43.0" layoutY="192.0" text="Telefon" />
-      <Label layoutX="43.0" layoutY="227.0" text="Email" />
-      <TextField fx:id="LastnamnField" layoutX="127.0" layoutY="153.0" promptText="Efternamn" />
-      <TextField fx:id="PhoneField" layoutX="127.0" layoutY="188.0" promptText="Telefon" />
-      <TextField fx:id="emailField" layoutX="127.0" layoutY="223.0" promptText="Email" />
+      <Label layoutX="50.0" layoutY="88.0" text="Förnamn" />
+      <Label layoutX="50.0" layoutY="122.0" text="Efternamn" />
+      <Label layoutX="50.0" layoutY="157.0" text="Telefon" />
+      <Label layoutX="50.0" layoutY="192.0" text="Email" />
+      <TextField fx:id="LastnamnField" layoutX="134.0" layoutY="118.0" />
+      <TextField fx:id="PhoneField" layoutX="134.0" layoutY="153.0" promptText="Obligatoriskt" />
+      <TextField fx:id="emailField" layoutX="134.0" layoutY="188.0" />
       <Label fx:id="information_lable" layoutX="230.0" layoutY="388.0" prefHeight="30.0" prefWidth="149.0" />
-      <Label layoutX="46.0" layoutY="279.0" text="Order datum" />
-      <TextField fx:id="fabricfield" layoutX="127.0" layoutY="306.0" />
-      <DatePicker fx:id="dateField" layoutX="127.0" layoutY="275.0" />
-      <Label layoutX="46.0" layoutY="310.0" text="Tyg Nr" />
-      <Label layoutX="46.0" layoutY="341.0" text="Produkt" />
-      <TextField fx:id="productField" layoutX="127.0" layoutY="337.0" />
+      <Label layoutX="312.0" layoutY="91.0" text="Order datum" />
+      <TextField fx:id="fabricfield" layoutX="393.0" layoutY="118.0" />
+      <Label layoutX="312.0" layoutY="122.0" text="Tyg Nr" />
+      <Label layoutX="312.0" layoutY="153.0" text="Produkt" />
+      <TextField fx:id="productField" layoutX="393.0" layoutY="149.0" />
+      <TextField fx:id="orderDateField" layoutX="393.0" layoutY="87.0" promptText="YY-MM-DD" />
    </children>
 </AnchorPane>
