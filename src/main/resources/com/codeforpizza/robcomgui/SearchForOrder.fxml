@@ -14,12 +14,12 @@
       <TextField fx:id="searchField" layoutX="360.0" layoutY="34.0" />
       <Label layoutX="96.0" layoutY="38.0" text="Sök efter Order" />
       <ChoiceBox fx:id="SearchForWhatChoice" layoutX="187.0" layoutY="34.0" prefWidth="150.0" />
-      <TableView fx:id="allordersTabel" layoutX="150.0" layoutY="79.0" prefHeight="434.0" prefWidth="548.0">
+      <TableView fx:id="allOrdersTabel" layoutX="150.0" layoutY="79.0" prefHeight="434.0" prefWidth="548.0">
         <columns>
             <TableColumn fx:id="idColum" prefWidth="61.0" text="Id" />
           <TableColumn fx:id="dateColum" prefWidth="129.0" text="Datum" />
-          <TableColumn fx:id="fabriccolum" prefWidth="127.5" text="Tyg" />
-            <TableColumn fx:id="procuctColum" prefWidth="220.0" text="Produkt" />
+          <TableColumn fx:id="fabricColum" prefWidth="127.5" text="Tyg" />
+            <TableColumn fx:id="productColum" prefWidth="220.0" text="Produkt" />
         </columns>
       </TableView>
       <Button fx:id="updateOrderButton" layoutX="23.0" layoutY="150.0" mnemonicParsing="false" text="Uppdatera Order" />

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.NewCustomerAndOrderController">
    <children>
       <Button fx:id="SaveCustomerAndOrderButton" layoutX="217.0" layoutY="240.0" mnemonicParsing="false" text="Spara ny Kund och ny order" />
       <TextField fx:id="FirstnamnField" layoutX="134.0" layoutY="84.0" />
@@ -22,7 +22,6 @@
       <TextField fx:id="LastnamnField" layoutX="134.0" layoutY="118.0" />
       <TextField fx:id="PhoneField" layoutX="134.0" layoutY="153.0" promptText="Obligatoriskt" />
       <TextField fx:id="emailField" layoutX="134.0" layoutY="188.0" />
-      <Label fx:id="information_lable" layoutX="230.0" layoutY="388.0" prefHeight="30.0" prefWidth="149.0" />
       <Label layoutX="312.0" layoutY="91.0" text="Order datum" />
       <TextField fx:id="fabricfield" layoutX="393.0" layoutY="118.0" />
       <Label layoutX="312.0" layoutY="122.0" text="Tyg Nr" />

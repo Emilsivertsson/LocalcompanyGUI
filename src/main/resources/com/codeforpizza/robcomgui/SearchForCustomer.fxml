@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.SearchForCustomerController">
    <children>
       <Button fx:id="searchButton" layoutX="725.0" layoutY="28.0" mnemonicParsing="false" text="Sök" />
       <TextField fx:id="SearchField" layoutX="555.0" layoutY="28.0" />
@@ -16,7 +16,7 @@
       <ChoiceBox fx:id="SearchForWhatChoiceBox" layoutX="393.0" layoutY="28.0" prefWidth="150.0" />
       <TableView fx:id="allCustomersTable" layoutX="144.0" layoutY="68.0" prefHeight="510.0" prefWidth="649.0">
         <columns>
-            <TableColumn fx:id="IdColumn" prefWidth="47.5" text="Id" />
+            <TableColumn fx:id="IdColum" prefWidth="47.5" text="Id" />
           <TableColumn fx:id="firstNameColum" prefWidth="97.5" text="Förnamn" />
           <TableColumn fx:id="lastNameColum" prefWidth="157.5" text="Efternamn" />
             <TableColumn fx:id="phoneColum" prefWidth="130.5" text="Telefon" />
