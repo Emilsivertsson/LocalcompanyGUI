@@ -6,8 +6,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class HelloApplication extends Application {
+
+    OrderService orderService = new OrderService();
+
+
+
+    public HelloApplication() throws SQLException {
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("SearchForCustomer.fxml"));
