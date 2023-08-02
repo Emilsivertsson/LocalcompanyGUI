@@ -3,42 +3,42 @@ package com.codeforpizza.robcomgui;
 import java.util.ArrayList;
 
 public class Customer {
-    private int id;
+    private int customerId;
     private String firstName;
     private String lastName;
     private String email;
-    private int phoneNumber;
+    private int phone;
     private ArrayList<Order> orders;
 
-    public Customer(String firstName, String lastName, String email, int phoneNumber) {
+    public Customer(String firstName, String lastName, String email, int phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        if(phoneNumber <= 0){
+        this.phone = phone;
+        if(phone <= 0){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
         this.orders = new ArrayList<>();
     }
 
-    public Customer(int id, String firstName, String lastName, String email, int phoneNumber) {
-        this.id = id;
+    public Customer(int customerId, String firstName, String lastName, String email, int phone) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        if(phoneNumber <= 0){
+        this.phone = phone;
+        if(phone <= 0){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
         this.orders = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {
@@ -65,15 +65,15 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public int getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        if(phoneNumber <= 0){
+    public void setPhone(int phone) {
+        if(phone <= 0){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
     }
 
     public ArrayList<Order> getOrders() {
@@ -87,11 +87,11 @@ public class Customer {
     @Override
     public String toString() {
         return  "-----------------------------------\n" +
-                "id: " + id + '\n' +
+                "id: " + customerId + '\n' +
                 "Förnamn: " + firstName + '\n' +
                 "Efternamn: " + lastName + '\n' +
                 "Email: " + email + '\n' +
-                "Telefon: " + phoneNumber + '\n' +
+                "Telefon: " + phone + '\n' +
                 "-----------------------------------\n";
     }
 

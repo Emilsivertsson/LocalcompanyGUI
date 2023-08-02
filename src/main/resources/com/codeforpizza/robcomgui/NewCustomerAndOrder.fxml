@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.NewCustomerAndOrderController">
    <children>
-      <Button fx:id="SaveCustomerAndOrderButton" layoutX="217.0" layoutY="240.0" mnemonicParsing="false" text="Spara ny Kund och ny order" />
+      <Button fx:id="SaveCustomerAndOrderButton" layoutX="217.0" layoutY="240.0" mnemonicParsing="false" onAction="#saveNewCustomerAndOrder" text="Spara ny Kund och ny order" />
       <TextField fx:id="FirstnamnField" layoutX="134.0" layoutY="84.0" />
       <Label layoutX="178.0" layoutY="28.0" text="Lägg till ny kund och Order">
          <font>

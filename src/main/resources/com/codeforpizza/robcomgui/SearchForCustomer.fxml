@@ -10,22 +10,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.SearchForCustomerController">
    <children>
-      <Button fx:id="searchButton" layoutX="725.0" layoutY="28.0" mnemonicParsing="false" text="Sök" />
+      <Button fx:id="searchButton" layoutX="725.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchForCustomer" text="Sök" />
       <TextField fx:id="SearchField" layoutX="555.0" layoutY="28.0" />
       <Label layoutX="333.0" layoutY="32.0" text="Sök efter" />
       <ChoiceBox fx:id="SearchForWhatChoiceBox" layoutX="393.0" layoutY="28.0" prefWidth="150.0" />
-      <TableView fx:id="allCustomersTable" layoutX="144.0" layoutY="68.0" prefHeight="510.0" prefWidth="649.0">
+      <TableView fx:id="allCustomersTable" layoutX="144.0" layoutY="75.0" prefHeight="503.0" prefWidth="649.0">
         <columns>
-            <TableColumn fx:id="IdColum" prefWidth="47.5" text="Id" />
+            <TableColumn fx:id="customerIdIdColum" prefWidth="47.5" text="Id" />
           <TableColumn fx:id="firstNameColum" prefWidth="97.5" text="Förnamn" />
           <TableColumn fx:id="lastNameColum" prefWidth="157.5" text="Efternamn" />
             <TableColumn fx:id="phoneColum" prefWidth="130.5" text="Telefon" />
             <TableColumn fx:id="mailColum" prefWidth="223.0" text="Email" />
         </columns>
       </TableView>
-      <Button fx:id="addOrderButton" layoutX="39.0" layoutY="78.0" mnemonicParsing="false" text="Lägg till order" />
-      <Button fx:id="deleteCustomerButton" layoutX="42.0" layoutY="239.0" mnemonicParsing="false" text="Ta bort kund" />
-      <Button fx:id="updateCustomerButton" layoutX="33.0" layoutY="197.0" mnemonicParsing="false" text="Uppdatera kund" />
-      <Button fx:id="searchForOrderButton" layoutX="49.0" layoutY="120.0" mnemonicParsing="false" text="Sök Order" />
+      <Button fx:id="addOrderButton" layoutX="39.0" layoutY="109.0" mnemonicParsing="false" onAction="#addNewOrder" text="Lägg till order" />
+      <Button fx:id="deleteCustomerButton" layoutX="42.0" layoutY="200.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Ta bort kund" />
+      <Button fx:id="updateCustomerButton" layoutX="33.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateCustomer" text="Uppdatera kund" />
+      <Button fx:id="searchForOrderButton" layoutX="44.0" layoutY="414.0" mnemonicParsing="false" onAction="#searchForOrder" text="Sök i Ordrar" />
+      <Button fx:id="addCustomerAndOrderButton" layoutX="39.0" layoutY="28.0" mnemonicParsing="false" onAction="#addNewCustomerAndOrder" text="Lägg till ny Kund och order" />
+      <Button fx:id="updateButton" layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#updateTable" text="Uppdatera" />
    </children>
 </AnchorPane>

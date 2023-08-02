@@ -1,5 +1,8 @@
 package com.codeforpizza.robcomgui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -106,8 +109,8 @@ public class Database {
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
             stmt.setString(3, customer.getEmail());
-            stmt.setInt(4, customer.getPhoneNumber());
-            stmt.setInt(5, customer.getId());
+            stmt.setInt(4, customer.getPhone());
+            stmt.setInt(5, customer.getCustomerId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -126,7 +129,7 @@ public class Database {
                     , rs.getInt("phone"));
 
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt2.setInt(1,customer.getId());
+            stmt2.setInt(1,customer.getCustomerId());
             ResultSet rs2 = stmt2.executeQuery();
             ArrayList<Order> orders = new ArrayList<>();
             while (rs2.next()) {
@@ -207,7 +210,7 @@ public class Database {
                     , rs.getInt("phone"));
 
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt2.setInt(1, customer.getId());
+            stmt2.setInt(1, customer.getCustomerId());
             ResultSet rs2 = stmt2.executeQuery();
             ArrayList<Order> orders = new ArrayList<>();
             while (rs2.next()) {
@@ -225,6 +228,25 @@ public class Database {
         }
     }
 
+    //read all customers returns a ObservableList of customers
+    public ObservableList<Customer> readAllCustomers() throws SQLException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
+            ResultSet rs = stmt.executeQuery();
+            ObservableList<Customer> customers = FXCollections.observableArrayList();
+            while (rs.next()) {
+                customers.add(new Customer(rs.getInt("customerId")
+                        , rs.getString("firstname")
+                        , rs.getString("lastname")
+                        , rs.getString("email")
+                        , rs.getInt("phone")));
+            }
+            return customers;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+    /*
     public String readAllCustomers() throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
@@ -243,10 +265,12 @@ public class Database {
         }
     }
 
+     */
+
     public void deleteCustomer(int phoneNr) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM orders WHERE orderdBy = ?");
-            stmt.setInt(1, readOneCustomerByPhone(phoneNr).getId());
+            stmt.setInt(1, readOneCustomerByPhone(phoneNr).getCustomerId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
@@ -267,8 +291,8 @@ public class Database {
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
             stmt.setString(3, customer.getEmail());
-            stmt.setInt(4, customer.getPhoneNumber());
-            stmt.setInt(5, customer.getId());
+            stmt.setInt(4, customer.getPhone());
+            stmt.setInt(5, customer.getCustomerId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -291,7 +315,7 @@ public class Database {
     public boolean checkOrdersExist(Customer customer) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt.setInt(1, customer.getId());
+            stmt.setInt(1, customer.getCustomerId());
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
@@ -302,7 +326,7 @@ public class Database {
     public void createOrder(Customer customer, Order order) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO orders (orderdBy, date, fabric, product) VALUES (?, ?, ?, ?)");
-            stmt.setInt(1, customer.getId());
+            stmt.setInt(1, customer.getCustomerId());
             stmt.setString(2, order.getDate());
             stmt.setString(3, order.getFabric());
             stmt.setString(4, order.getProduct());

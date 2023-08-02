@@ -1,5 +1,7 @@
 package com.codeforpizza.robcomgui;
 
+import javafx.collections.ObservableList;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -35,9 +37,8 @@ public class CustomerService {
         return exists;
     }
 
-    public void create(String firstName, String lastName, String email, int phone) throws SQLException {
+    public void create(Customer customer) throws SQLException {
         checkIfConnection();
-        Customer customer = new Customer(firstName, lastName, email, phone);
         db.createCustomer(customer);
         closeConnection();
     }
@@ -63,9 +64,9 @@ public class CustomerService {
     }
 
 
-    public String readAllCustomers() throws SQLException {
+    public ObservableList<Customer> readAllCustomers() throws SQLException {
         checkIfConnection();
-        String customers = db.readAllCustomers();
+        ObservableList<Customer> customers = db.readAllCustomers();
         closeConnection();
         return customers;
     }
