@@ -25,9 +25,6 @@ public class MainWindowController {
     private Button searchButton;
 
     @FXML
-    private Button addOrderButton;
-
-    @FXML
     private Button deleteCustomerButton;
 
     @FXML
@@ -35,6 +32,12 @@ public class MainWindowController {
 
     @FXML
     private Button searchForOrderButton;
+
+    @FXML
+    private Button allMailsButtons;
+
+    @FXML
+    private Button showAllOrdersForSelectedButton;
 
     @FXML
     private TextField SearchField;
@@ -167,5 +170,17 @@ public class MainWindowController {
         stage.show();
 
         //TODO not working
+    }
+
+    //open a new window and shows all emails in the db
+    @FXML
+    public void showAllEmails() throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllEmails.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("All Emails");
+        stage.setScene(scene);
+
+        stage.show();
     }
 }

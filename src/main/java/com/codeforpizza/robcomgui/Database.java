@@ -536,16 +536,16 @@ public class Database {
         return null;
     }
 
-
-    public String readAllEmails() {
+    //return a list of all the emails in the database
+    public ArrayList readAllEmails() {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT email FROM customers");
             ResultSet rs = stmt.executeQuery();
-            String result = "";
+            ArrayList<String> emails = new ArrayList<>();
             while (rs.next()) {
-                result += rs.getString("email") + ", ";
+                emails.add(rs.getString("email"));
             }
-            return result;
+            return emails;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

@@ -109,9 +109,9 @@ public class CustomerService {
         return customers;
     }
 
-    public String readAllEmails() throws SQLException {
+    public ArrayList readAllEmails() throws SQLException {
         checkIfConnection();
-        String emails = db.readAllEmails();
+        ArrayList emails = db.readAllEmails();
         closeConnection();
         return emails;
 

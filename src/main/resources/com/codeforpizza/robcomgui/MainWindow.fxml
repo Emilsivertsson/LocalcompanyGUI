@@ -29,5 +29,6 @@
       <Button fx:id="addCustomerAndOrderButton" layoutX="39.0" layoutY="28.0" mnemonicParsing="false" onAction="#addNewCustomerAndOrder" text="Lägg till ny Kund och order" />
       <Button fx:id="updateButton" layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#updateTable" text="Uppdatera" />
       <Button fx:id="showAllOrdersForSelectedButton" layoutX="14.0" layoutY="105.0" mnemonicParsing="false" onAction="#showAllOrders" text="Visa kundens Ordrar" />
+      <Button fx:id="allMailsButtons" layoutX="14.0" layoutY="514.0" mnemonicParsing="false" onAction="#showAllEmails" text="Visa alla mailadresser" />
    </children>
 </AnchorPane>
