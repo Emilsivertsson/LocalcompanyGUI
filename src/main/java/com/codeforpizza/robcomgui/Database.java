@@ -336,16 +336,20 @@ public class Database {
         }
     }
 
-    public Order readOneOrder(int id) throws SQLException {
+    //read all orders returns a ObservableList of orders
+    public ObservableList<Order> readAllOrdersForSelected(int id) throws SQLException {
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE orderId = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            return new Order(rs.getInt("orderId")
-                    , rs.getInt("orderdBy")
-                    , rs.getString("date")
-                    , rs.getString("fabric")
-                    , rs.getString("product"));
+            ObservableList<Order> orders = FXCollections.observableArrayList();
+            while (rs.next()) {
+                orders.add(new Order(rs.getInt("orderId")
+                        , rs.getString("date")
+                        , rs.getString("fabric")
+                        , rs.getString("product")));
+            }
+            return orders;
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }
@@ -388,7 +392,7 @@ public class Database {
             stmt.setString(2, order.getDate());
             stmt.setString(3, order.getFabric());
             stmt.setString(4, order.getProduct());
-            stmt.setInt(5, order.getId());
+            stmt.setInt(5, order.getOrderId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
@@ -542,6 +546,26 @@ public class Database {
                 result += rs.getString("email") + ", ";
             }
             return result;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ObservableList<Customer> searchForCustomer(String searchForWhat, String searchField) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE " + searchForWhat + " LIKE ?");
+            stmt.setString(1, "%" + searchField + "%");
+            ResultSet rs = stmt.executeQuery();
+            ObservableList<Customer> customers = FXCollections.observableArrayList();
+            while (rs.next()) {
+                customers.add(new Customer(rs.getInt("customerId")
+                        , rs.getString("firstname")
+                        , rs.getString("lastname")
+                        , rs.getString("email")
+                        , rs.getInt("phone")));
+            }
+            return customers;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

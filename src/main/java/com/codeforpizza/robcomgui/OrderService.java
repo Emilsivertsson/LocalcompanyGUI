@@ -1,5 +1,7 @@
 package com.codeforpizza.robcomgui;
 
+import javafx.collections.ObservableList;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -41,9 +43,9 @@ public class OrderService {
         closeConnection();
     }
 
-    public Order read(int id) throws SQLException {
+    public ObservableList<Order> read(int id) throws SQLException {
         checkIfConnection();
-        Order order = db.readOneOrder(id);
+        ObservableList<Order> order = db.readAllOrdersForSelected(id);
         closeConnection();
         return order;
     }

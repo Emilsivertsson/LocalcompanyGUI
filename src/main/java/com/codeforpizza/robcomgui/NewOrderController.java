@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 public class NewOrderController {
 
+    OrderService orderService = new OrderService();
+
     @FXML
     private Label customerNameLabel;
 
@@ -24,12 +26,27 @@ public class NewOrderController {
     @FXML
     private Button saveNewOrderButton;
 
+    private Customer selectedCustomer;
+
+    public NewOrderController() throws SQLException {
+    }
+
     public void initialize() throws SQLException {
-        //customerNameLabel.setText("Customer: " + CustomerService.getCustomer().getFirstName() + " " + CustomerService.getCustomer().getLastName());
+        if (selectedCustomer != null) {
+            customerNameLabel.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
+        } else {
+            customerNameLabel.setText("No customer selected.");
+        }
     }
 
     @FXML
-    public void saveNewOrder() {
-        //todo
+    public void saveNewOrder() throws SQLException {
+        orderService.create(selectedCustomer, new Order(orderDateField.getText(), fabricField.getText(), productField.getText()));
+        saveNewOrderButton.getScene().getWindow().hide();
+    }
+
+    // Method to set the customer object from the previous window
+    public void setSelectedCustomer(Customer selectedCustomer) {
+        this.selectedCustomer = selectedCustomer;
     }
 }

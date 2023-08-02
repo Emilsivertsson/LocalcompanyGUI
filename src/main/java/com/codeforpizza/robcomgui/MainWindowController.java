@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.ChoiceBox;
 import java.sql.SQLException;
 
-public class SearchForCustomerController {
+public class MainWindowController {
 
     CustomerService customerService = new CustomerService();
 
@@ -40,33 +40,33 @@ public class SearchForCustomerController {
     private TextField SearchField;
 
     @FXML
-    private ChoiceBox <String> SearchForWhatChoiceBox = new ChoiceBox<>();
+    private ChoiceBox<String> SearchForWhatChoiceBox = new ChoiceBox<>();
 
     @FXML
-    private TableView <Customer> allCustomersTable;
+    private TableView<Customer> allCustomersTable;
 
     @FXML
-    private TableColumn <Customer, Integer>  customerIdIdColum;
+    private TableColumn<Customer, Integer> customerIdIdColum;
 
     @FXML
-    private TableColumn <Customer,String> firstNameColum;
+    private TableColumn<Customer, String> firstNameColum;
 
     @FXML
-    private TableColumn <Customer,String> lastNameColum;
+    private TableColumn<Customer, String> lastNameColum;
 
     @FXML
-    private TableColumn <Customer,String> mailColum;
+    private TableColumn<Customer, String> mailColum;
 
     @FXML
-    private TableColumn <Customer, Integer> phoneColum;
+    private TableColumn<Customer, Integer> phoneColum;
 
-    public SearchForCustomerController() throws SQLException {
+    public MainWindowController() throws SQLException {
 
     }
 
     public void initialize() throws SQLException {
         printAllCustomers();
-        SearchForWhatChoiceBox.getItems().addAll("First name", "Last name", "Phone", "Email");
+        SearchForWhatChoiceBox.getItems().addAll("firstname", "lastname", "phone", "email");
     }
 
     //print all customers in db to TableView
@@ -88,29 +88,26 @@ public class SearchForCustomerController {
     //open a new window to add a new customer and order
     @FXML
     public void addNewCustomerAndOrder() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("NewCustomerAndOrder.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("NewCustomerAndOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setTitle("New Customer and Order ");
         stage.setScene(scene);
         stage.show();
+
     }
 
     //open a new window to add a new order
-    @FXML
-    public void addNewOrder() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("NewOrder.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle("New Order ");
-        stage.setScene(scene);
-        stage.show();
-    }
+
 
     //delete a customer
     @FXML
     public void deleteCustomer() throws SQLException {
+        Customer customer = allCustomersTable.getSelectionModel().getSelectedItem();
+        customerService.delete(customer.getPhone());
+        printAllCustomers();
         //todo
+        //add a confirmation window
     }
 
     //open a new window and update selected customer
@@ -121,20 +118,54 @@ public class SearchForCustomerController {
 
     //search for a customer by using the search field and the choicebox
     //print the result to the TableView
-    //if the searchfield is empty print all customers
     @FXML
     public void searchForCustomer() throws SQLException {
-        //todo
+        String searchForWhat = SearchForWhatChoiceBox.getValue();
+        String searchField = SearchField.getText();
+        ObservableList<Customer> customers = customerService.searchForCustomer(searchForWhat, searchField);
+
+        customerIdIdColum.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        firstNameColum.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColum.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        phoneColum.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        mailColum.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        allCustomersTable.setItems(customers);
     }
 
     //open new window and search for an order
     @FXML
     public void searchForOrder() throws Exception {
-        //todo
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SearchForOrder.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Search for Order");
+        stage.setScene(scene);
+
+        stage.show();
     }
 
     @FXML
     public void updateTable() throws SQLException {
         printAllCustomers();
+    }
+
+    //open a new window and shows all orders of the selected customer
+    @FXML
+    public void showAllOrders() throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllOrdersForSelected.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("All Orders");
+        stage.setScene(scene);
+
+        Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
+        AllOrdersForSelectedController controller = fxmlLoader.getController();
+        controller.setSelectedCustomer(selectedCustomer);
+        controller.initialize();
+
+        stage.show();
+
+        //TODO not working
     }
 }

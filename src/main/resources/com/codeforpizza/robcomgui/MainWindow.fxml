@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.SearchForCustomerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.MainWindowController">
    <children>
       <Button fx:id="searchButton" layoutX="725.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchForCustomer" text="Sök" />
       <TextField fx:id="SearchField" layoutX="555.0" layoutY="28.0" />
@@ -23,11 +23,11 @@
             <TableColumn fx:id="mailColum" prefWidth="223.0" text="Email" />
         </columns>
       </TableView>
-      <Button fx:id="addOrderButton" layoutX="39.0" layoutY="109.0" mnemonicParsing="false" onAction="#addNewOrder" text="Lägg till order" />
-      <Button fx:id="deleteCustomerButton" layoutX="42.0" layoutY="200.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Ta bort kund" />
-      <Button fx:id="updateCustomerButton" layoutX="33.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateCustomer" text="Uppdatera kund" />
+      <Button fx:id="deleteCustomerButton" layoutX="34.0" layoutY="184.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Ta bort kund" />
+      <Button fx:id="updateCustomerButton" layoutX="25.0" layoutY="141.0" mnemonicParsing="false" onAction="#updateCustomer" text="Uppdatera kund" />
       <Button fx:id="searchForOrderButton" layoutX="44.0" layoutY="414.0" mnemonicParsing="false" onAction="#searchForOrder" text="Sök i Ordrar" />
       <Button fx:id="addCustomerAndOrderButton" layoutX="39.0" layoutY="28.0" mnemonicParsing="false" onAction="#addNewCustomerAndOrder" text="Lägg till ny Kund och order" />
       <Button fx:id="updateButton" layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#updateTable" text="Uppdatera" />
+      <Button fx:id="showAllOrdersForSelectedButton" layoutX="14.0" layoutY="105.0" mnemonicParsing="false" onAction="#showAllOrders" text="Visa kundens Ordrar" />
    </children>
 </AnchorPane>

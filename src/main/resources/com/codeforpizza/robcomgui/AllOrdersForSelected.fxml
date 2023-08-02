@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="473.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.AllOrdersForSelectedController">
+   <children>
+      <Label layoutX="156.0" layoutY="27.0" text="Alla Ordrar för ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="customerNameLable" layoutX="296.0" layoutY="27.0" prefHeight="17.0" prefWidth="139.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="allOrdersTable" layoutX="156.0" layoutY="71.0" prefHeight="382.0" prefWidth="455.0">
+        <columns>
+          <TableColumn fx:id="IdColum" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="dateColum" prefWidth="75.0" text="Datum" />
+            <TableColumn fx:id="fabricColum" prefWidth="84.5" text="Tyg" />
+            <TableColumn fx:id="productColum" prefWidth="219.5" text="Produkt" />
+        </columns>
+      </TableView>
+      <Button fx:id="updateOrderButton" layoutX="24.0" layoutY="113.0" mnemonicParsing="false" onAction="#updateOrder" text="Uppdatera Order" />
+      <Button fx:id="deleteOrderButton" layoutX="33.0" layoutY="154.0" mnemonicParsing="false" onAction="#deleteOrder" text="Ta bort Order" />
+      <Button fx:id="newOrderButton" layoutX="45.0" layoutY="71.0" mnemonicParsing="false" text="Ny Order" />
+      <Button fx:id="updateOrdersButton" layoutX="41.0" layoutY="197.0" mnemonicParsing="false" text="Uppdatera" />
+   </children>
+</AnchorPane>

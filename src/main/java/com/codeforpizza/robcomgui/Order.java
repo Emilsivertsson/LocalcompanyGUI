@@ -2,13 +2,12 @@ package com.codeforpizza.robcomgui;
 
 public class Order {
 
-    private int id;
+    private int orderId;
     private String date;
 
     private String fabric;
 
     private String product;
-
 
     private int orderdBy = 0;
 
@@ -19,9 +18,16 @@ public class Order {
         this.product = product;
     }
 
-    public Order(int id,int orderdBy , String date, String fabric, String product) {
-        this.id = id;
+    public Order(int orderId, int orderdBy , String date, String fabric, String product) {
+        this.orderId = orderId;
         this.orderdBy = orderdBy;
+        this.date = date;
+        this.fabric = fabric;
+        this.product = product;
+    }
+
+    public Order(int orderId, String date, String fabric, String product) {
+        this.orderId = orderId;
         this.date = date;
         this.fabric = fabric;
         this.product = product;
@@ -31,8 +37,8 @@ public class Order {
         return date;
     }
 
-    public int getId() {
-        return id;
+    public int getOrderId() {
+        return orderId;
     }
 
     public void setDate(String date) {
@@ -55,8 +61,8 @@ public class Order {
         this.orderdBy = orderdBy;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public String getProduct() {
@@ -70,7 +76,7 @@ public class Order {
     @Override
     public String toString() {
         return  "------------------------" + "\n " +
-                "Order Id: " + id + "\n " +
+                "Order Id: " + orderId + "\n " +
                 "Datum: " + date + "\n " +
                 "Tyg: " + fabric + "\n " +
                 "Produkt: " + product + "\n " +
@@ -78,7 +84,7 @@ public class Order {
     }
 
     public int getCustomerId() {
-        return id;
+        return orderId;
     }
 }
 

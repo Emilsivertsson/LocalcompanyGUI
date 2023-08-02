@@ -116,4 +116,11 @@ public class CustomerService {
         return emails;
 
     }
+
+    public ObservableList<Customer> searchForCustomer(String searchForWhat, String searchField) throws SQLException {
+        checkIfConnection();
+        ObservableList<Customer> customers = db.searchForCustomer(searchForWhat, searchField);
+        closeConnection();
+        return customers;
+    }
 }
