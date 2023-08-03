@@ -8,21 +8,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button fx:id="SearchButton" layoutX="534.0" layoutY="34.0" mnemonicParsing="false" text="Sök" />
-      <TextField fx:id="searchField" layoutX="360.0" layoutY="34.0" />
-      <Label layoutX="96.0" layoutY="38.0" text="Sök efter Order" />
-      <ChoiceBox fx:id="SearchForWhatChoice" layoutX="187.0" layoutY="34.0" prefWidth="150.0" />
-      <TableView fx:id="allOrdersTabel" layoutX="150.0" layoutY="79.0" prefHeight="434.0" prefWidth="548.0">
-        <columns>
-            <TableColumn fx:id="idColum" prefWidth="61.0" text="Id" />
-          <TableColumn fx:id="dateColum" prefWidth="129.0" text="Datum" />
-          <TableColumn fx:id="fabricColum" prefWidth="127.5" text="Tyg" />
-            <TableColumn fx:id="productColum" prefWidth="220.0" text="Produkt" />
-        </columns>
-      </TableView>
-      <Button fx:id="updateOrderButton" layoutX="23.0" layoutY="150.0" mnemonicParsing="false" text="Uppdatera Order" />
-      <Button fx:id="deleteOrderButton" layoutX="32.0" layoutY="201.0" mnemonicParsing="false" text="Ta bort Order" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0"
+            prefWidth="719.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.codeforpizza.robcomgui.SearchForOrderController">
+    
+    <Button fx:id="SearchButton" layoutX="534.0" layoutY="34.0" mnemonicParsing="false" text="Sök"/>
+    <TextField fx:id="searchField" layoutX="360.0" layoutY="34.0"/>
+    <Label layoutX="96.0" layoutY="38.0" text="Sök efter Order"/>
+    <ChoiceBox fx:id="SearchForWhatChoice" layoutX="187.0" layoutY="34.0" prefWidth="150.0"/>
+    <TableView fx:id="allOrdersTabel" layoutX="150.0" layoutY="80.0" prefHeight="438.0" prefWidth="550.0">
+      <columns>
+          <TableColumn fx:id="idColum" prefWidth="61.0" text="Id"/>
+          <TableColumn fx:id="orderdByColum" prefWidth="105.5" text="Beställare"/>
+          <TableColumn fx:id="dateColum" prefWidth="113.5" text="Datum"/>
+          <TableColumn fx:id="fabricColum" prefWidth="98.5" text="Tyg"/>
+          <TableColumn fx:id="productColum" maxWidth="2500.0" prefWidth="170.0" text="Produkt"/>
+      </columns>
+    </TableView>
+    <Button fx:id="updateOrderButton" layoutX="23.0" layoutY="150.0" mnemonicParsing="false" text="Uppdatera Order"/>
+    <Button fx:id="deleteOrderButton" layoutX="32.0" layoutY="201.0" mnemonicParsing="false" text="Ta bort Order"/>
 </AnchorPane>

@@ -355,21 +355,20 @@ public class Database {
         }
     }
 
-    public String readAllOrders() throws SQLException {
+    //read all orders returns a ObservableList of orders
+    public ObservableList<Order> readAllOrders() throws SQLException {
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT orders.orderId, customers.email , orders.date, orders.fabric, orders.product FROM orders" +
-                    " INNER JOIN customers ON orders.orderdBy = customers.customerId");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders");
             ResultSet rs = stmt.executeQuery();
-            String result = "";
+            ObservableList<Order> orders = FXCollections.observableArrayList();
             while (rs.next()) {
-                result += rs.getInt("orderId") + "\n"
-                        + rs.getString("email") + "\n"
-                        + rs.getString("date") + "\n"
-                        + rs.getString("fabric") + "\n"
-                        + rs.getString("product") + "\n" +
-                        "-----------------------------------------"+ "\n";
+                orders.add(new Order(rs.getInt("orderId")
+                        , rs.getInt("orderdBy")
+                        , rs.getString("date")
+                        , rs.getString("fabric")
+                        , rs.getString("product")));
             }
-            return result;
+            return orders;
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

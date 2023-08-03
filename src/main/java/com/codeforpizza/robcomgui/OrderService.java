@@ -63,9 +63,9 @@ public class OrderService {
         closeConnection();
     }
 
-    public String readAllOrders() throws SQLException {
+    public ObservableList<Order> readAllOrders() throws SQLException {
         checkIfConnection();
-        String orders = db.readAllOrders();
+        ObservableList<Order> orders = db.readAllOrders();
         closeConnection();
         return orders;
     }

@@ -16,6 +16,7 @@ import java.sql.SQLException;
 public class AllOrdersForSelectedController {
 
     OrderService orderService = new OrderService();
+
     @FXML
     private Label customerNameLable;
 
@@ -29,10 +30,10 @@ public class AllOrdersForSelectedController {
     private TableColumn<Order, String> dateColum;
 
     @FXML
-    TableColumn<Order, String> fabricColum;
+    private TableColumn<Order, String> fabricColum;
 
     @FXML
-    TableColumn<Order, String> productColum;
+    private TableColumn<Order, String> productColum;
 
     @FXML
     private Button updateOrderButton;
@@ -40,12 +41,19 @@ public class AllOrdersForSelectedController {
     @FXML
     private Button deleteOrderButton;
 
+    @FXML
+    private Button newOrderButton;
+
+    @FXML
+    private Button updateOrdersButton;
+
     private Customer selectedCustomer;
 
     public AllOrdersForSelectedController() throws SQLException {
     }
 
     public void initialize() throws SQLException {
+        setSelectedCustomer(selectedCustomer);
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {
@@ -62,7 +70,6 @@ public class AllOrdersForSelectedController {
 
     public void setSelectedCustomer(Customer selectedCustomer) {
         this.selectedCustomer = selectedCustomer;
-
     }
 
     public void updateOrder() throws SQLException {

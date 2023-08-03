@@ -3,13 +3,16 @@ package com.codeforpizza.robcomgui;
 public class Order {
 
     private int orderId;
+
+    private int orderdBy = 0;
+
     private String date;
 
     private String fabric;
 
     private String product;
 
-    private int orderdBy = 0;
+
 
     public Order(String date, String fabric, String product) {
         this.orderdBy = orderdBy;

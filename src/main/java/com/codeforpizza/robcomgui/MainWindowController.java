@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.scene.control.ChoiceBox;
+
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainWindowController {
@@ -70,6 +72,7 @@ public class MainWindowController {
     public void initialize() throws SQLException {
         printAllCustomers();
         SearchForWhatChoiceBox.getItems().addAll("firstname", "lastname", "phone", "email");
+        SearchForWhatChoiceBox.setValue("firstname");
     }
 
     //print all customers in db to TableView
@@ -115,8 +118,20 @@ public class MainWindowController {
 
     //open a new window and update selected customer
     @FXML
-    public void updateCustomer() throws SQLException {
-        //todo
+    public void updateCustomer() throws SQLException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateCustomer.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Update Customer");
+        stage.setScene(scene);
+
+        Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
+        UpdateCustomerController updateCustomerController = fxmlLoader.getController();
+        updateCustomerController.setSelectedCustomer(selectedCustomer);
+
+        updateCustomerController.initialize();
+        stage.show();
+
     }
 
     //search for a customer by using the search field and the choicebox
@@ -163,16 +178,16 @@ public class MainWindowController {
         stage.setScene(scene);
 
         Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
-        AllOrdersForSelectedController controller = fxmlLoader.getController();
-        controller.setSelectedCustomer(selectedCustomer);
-        controller.initialize();
+        AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
+        allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
 
+        allOrdersForSelectedController.initialize();
         stage.show();
 
         //TODO not working
     }
 
-    //open a new window and shows all emails in the db
+
     @FXML
     public void showAllEmails() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllEmails.fxml"));
