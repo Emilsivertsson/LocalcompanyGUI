@@ -117,86 +117,6 @@ public class Database {
         }
     }
 
-    public Customer readOneCustomerByEmail(String email) throws SQLException {
-        try{
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE email = ?");
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-            Customer customer = new Customer(rs.getInt("customerId")
-                    , rs.getString("firstname")
-                    , rs.getString("lastname")
-                    , rs.getString("email")
-                    , rs.getInt("phone"));
-
-            PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt2.setInt(1,customer.getCustomerId());
-            ResultSet rs2 = stmt2.executeQuery();
-            ArrayList<Order> orders = new ArrayList<>();
-            while (rs2.next()) {
-                orders.add(new Order(rs2.getInt("orderId")
-                        , rs2.getInt("orderdBy")
-                        , rs2.getString("date")
-                        , rs2.getString("fabric")
-                        , rs2.getString("product")));
-            }
-            customer.setOrders(orders);
-
-            return customer;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-    //search for customer via wildcard in email
-    public ArrayList<Customer> readCustomers(String email) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE email LIKE ?");
-            stmt.setString(1, "%" + email + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Customer> customers = new ArrayList<>();
-            while (rs.next()) {
-                customers.add(new Customer(rs.getInt("customerId")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
-                        , rs.getString("email")
-                        , rs.getInt("phone")));
-            }
-            return customers;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-
-    public Customer readOneCustomerByEmail(int id) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE customerId = ?");
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            Customer customer = new Customer(rs.getString("firstname")
-                    , rs.getString("lastname")
-                    , rs.getString("email")
-                    , rs.getInt("phone"));
-
-            //add arraylist of orders to customer
-            PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt2.setInt(1, id);
-            ResultSet rs2 = stmt2.executeQuery();
-            ArrayList<Order> orders = new ArrayList<>();
-            while (rs2.next()) {
-                orders.add(new Order(rs2.getInt("orderId")
-                        , rs2.getInt("orderdBy")
-                        , rs2.getString("date")
-                        , rs2.getString("fabric"),
-                        rs2.getString("product")));
-            }
-            customer.setOrders(orders);
-
-            return customer;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
     public Customer readOneCustomerByPhone(int phone) throws SQLException {
         try {
@@ -246,26 +166,6 @@ public class Database {
             throw new SQLException(e.getMessage());
         }
     }
-    /*
-    public String readAllCustomers() throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
-            ResultSet rs = stmt.executeQuery();
-            String result = "";
-            while (rs.next()) {
-                result += rs.getInt("customerId") + " "
-                        + rs.getString("firstname") + " "
-                        + rs.getString("lastname") + " "
-                        + rs.getString("email") + " "
-                        + rs.getInt("phone") + "\n";
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-     */
 
     public void deleteCustomer(int phoneNr) throws SQLException {
         try {
@@ -300,28 +200,8 @@ public class Database {
     }
 
 
-    public boolean checkIfOrderExist(int id) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM orders WHERE orderdBy = ?");
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            return rs.getInt(1) > 0;
 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
-    public boolean checkOrdersExist(Customer customer) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
-            stmt.setInt(1, customer.getCustomerId());
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
     public void createOrder(Customer customer, Order order) throws SQLException {
         try {
@@ -399,144 +279,10 @@ public class Database {
     }
 
 
-    public ArrayList<Customer> searchByFirstName(String firstName) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE firstname LIKE ?");
-            stmt.setString(1, "%" + firstName + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Customer> customers = new ArrayList<>();
-            while (rs.next()) {
-                customers.add(new Customer(rs.getInt("customerId")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
-                        , rs.getString("email")
-                        , rs.getInt("phone")));
-            }
-            return customers;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
 
-    public ArrayList<Customer> searchByLastName(String lastName) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE lastname LIKE ?");
-            stmt.setString(1, "%" + lastName + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Customer> customers = new ArrayList<>();
-            while (rs.next()) {
-                customers.add(new Customer(rs.getInt("customerId")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
-                        , rs.getString("email")
-                        , rs.getInt("phone")));
-            }
-            return customers;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-    public ArrayList<Customer> searchByEmail(String email) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE email LIKE ?");
-            stmt.setString(1, "%" + email + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Customer> customers = new ArrayList<>();
-            while (rs.next()) {
-                customers.add(new Customer(rs.getInt("customerId")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
-                        , rs.getString("email")
-                        , rs.getInt("phone")));
-            }
-            return customers;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-    public ArrayList<Customer> searchByPhone(int phoneNumber) throws SQLException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE phone LIKE ?");
-            stmt.setString(1, "%" + phoneNumber + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Customer> customers = new ArrayList<>();
-            while (rs.next()) {
-                customers.add(new Customer(rs.getInt("customerId")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
-                        , rs.getString("email")
-                        , rs.getInt("phone")));
-            }
-            return customers;
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
-    }
-
-    public ArrayList<Order> searchByFabric(String fabric) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE fabric LIKE ?");
-            stmt.setString(1, "%" + fabric + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Order> orders = new ArrayList<>();
-            while (rs.next()) {
-                orders.add(new Order(rs.getInt("orderId")
-                        , rs.getInt("orderdBy")
-                        , rs.getString("date")
-                        , rs.getString("fabric")
-                        , rs.getString("product")));
-            }
-            return orders;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public ArrayList<Order> searchByDate(String date) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE date LIKE ?");
-            stmt.setString(1, "%" + date + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Order> orders = new ArrayList<>();
-            while (rs.next()) {
-                orders.add(new Order(rs.getInt("orderId")
-                        , rs.getInt("orderdBy")
-                        , rs.getString("date")
-                        , rs.getString("fabric")
-                        , rs.getString("product")));
-            }
-            return orders;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
-    public ArrayList<Order> searchByProduct(String product) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE product LIKE ?");
-            stmt.setString(1, "%" + product + "%");
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<Order> orders = new ArrayList<>();
-            while (rs.next()) {
-                orders.add(new Order(rs.getInt("orderId")
-                        , rs.getInt("orderdBy")
-                        , rs.getString("date")
-                        , rs.getString("fabric")
-                        , rs.getString("product")));
-            }
-            return orders;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
 
     //return a list of all the emails in the database
-    public ArrayList readAllEmails() {
+    public ArrayList <String> readAllEmails() {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT email FROM customers");
             ResultSet rs = stmt.executeQuery();

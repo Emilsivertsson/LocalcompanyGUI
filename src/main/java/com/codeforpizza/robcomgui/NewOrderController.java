@@ -31,7 +31,7 @@ public class NewOrderController {
     public NewOrderController() throws SQLException {
     }
 
-    public void initialize() throws SQLException {
+    public void initialize(){
         if (selectedCustomer != null) {
             customerNameLabel.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {

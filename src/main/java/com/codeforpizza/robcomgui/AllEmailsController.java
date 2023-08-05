@@ -16,7 +16,7 @@ public class AllEmailsController {
     }
 
     public void initialize() throws SQLException {
-        ArrayList emails = customerService.readAllEmails();
+        ArrayList <String> emails = customerService.readAllEmails();
         for (int i = 0; i < emails.size(); i++) {
             allEmailsTextField.appendText(emails.get(i).toString() + ", \n");
         }

@@ -72,8 +72,6 @@ public class SearchForOrderController {
         allOrdersTabel.setItems(orders);
     }
 
-    //search for a order by using the search field and the choicebox
-    //print the result to the TableView
     public void search() throws SQLException {
         String searchForWhat = SearchForWhatChoice.getValue();
         String searchFor = searchField.getText();

@@ -1,6 +1,7 @@
 package com.codeforpizza.robcomgui;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,17 +46,14 @@ public class AllOrdersForSelectedController {
     @FXML
     private Button newOrderButton;
 
-    @FXML
-    private Button updateOrdersButton;
-
     private Customer selectedCustomer;
 
     public AllOrdersForSelectedController() throws SQLException {
     }
 
     public void initialize() throws SQLException {
-        setSelectedCustomer(selectedCustomer);
-        setAllOrders(selectedCustomer);
+        //setAllOrders(selectedCustomer);
+        printAllOrders(selectedCustomer);
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {
@@ -64,7 +62,8 @@ public class AllOrdersForSelectedController {
 
     }
 
-    private void setAllOrders(Customer selectedCustomer) throws SQLException {
+    //TODO not working
+    public void printAllOrders(Customer selectedCustomer) throws SQLException {
         ObservableList<Order> allOrders = orderService.read(selectedCustomer.getCustomerId());
 
         IdColum.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -89,16 +88,15 @@ public class AllOrdersForSelectedController {
         controller.setOrder(allOrdersTable.getSelectionModel().getSelectedItem());
         controller.initialize();
         stage.show();
-
+        printAllOrders(selectedCustomer);
     }
 
     public void deleteOrder() throws SQLException {
         Order selectedOrder = allOrdersTable.getSelectionModel().getSelectedItem();
         orderService.delete(selectedOrder.getOrderId());
-        setAllOrders(selectedCustomer);
+        printAllOrders(selectedCustomer);
     }
 
-    @FXML
     public void addNewOrder() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("NewOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -113,5 +111,6 @@ public class AllOrdersForSelectedController {
 
         controller.initialize();
         stage.show();
+        printAllOrders(selectedCustomer);
     }
 }

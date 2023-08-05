@@ -42,26 +42,6 @@ public class CustomerService {
         db.createCustomer(customer);
         closeConnection();
     }
-    public Customer readCustomerById(int id) throws SQLException {
-        checkIfConnection();
-        Customer customer = db.readOneCustomerByEmail(id);
-        closeConnection();
-        return customer;
-    }
-
-    public Customer readCustomerByEmail(String email) throws SQLException {
-        checkIfConnection();
-        Customer customer = db.readOneCustomerByEmail(email);
-        closeConnection();
-        return customer;
-    }
-
-    public Customer readCustomerByPhone(int phone) throws SQLException {
-        checkIfConnection();
-        Customer customer = db.readOneCustomerByPhone(phone);
-        closeConnection();
-        return customer;
-    }
 
 
     public ObservableList<Customer> readAllCustomers() throws SQLException {
@@ -83,35 +63,9 @@ public class CustomerService {
         closeConnection();
     }
 
-    public ArrayList<Customer> searchByFirstName(String firstName) throws SQLException {
+    public ArrayList <String> readAllEmails() throws SQLException {
         checkIfConnection();
-        ArrayList<Customer> customers = db.searchByFirstName(firstName);
-        closeConnection();
-        return customers;
-    }
-
-    public ArrayList<Customer> searchByLastName(String lastName) throws SQLException {
-        checkIfConnection();
-        return db.searchByLastName(lastName);
-    }
-
-    public ArrayList<Customer> searchByEmail(String email) throws SQLException {
-        checkIfConnection();
-        ArrayList<Customer> customers = db.searchByEmail(email);
-        closeConnection();
-        return customers;
-    }
-
-    public ArrayList<Customer> searchByPhone(int phoneNumber) throws SQLException {
-        checkIfConnection();
-        ArrayList<Customer> customers = db.searchByPhone(phoneNumber);
-        closeConnection();
-        return customers;
-    }
-
-    public ArrayList readAllEmails() throws SQLException {
-        checkIfConnection();
-        ArrayList emails = db.readAllEmails();
+        ArrayList <String> emails = db.readAllEmails();
         closeConnection();
         return emails;
 

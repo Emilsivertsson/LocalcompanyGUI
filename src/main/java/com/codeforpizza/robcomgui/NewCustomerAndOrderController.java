@@ -1,14 +1,12 @@
 package com.codeforpizza.robcomgui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.Format;
 
 public class NewCustomerAndOrderController {
 
@@ -41,10 +39,10 @@ public class NewCustomerAndOrderController {
     private TextField productField;
 
 
-    public NewCustomerAndOrderController() throws SQLException, IOException {
+    public NewCustomerAndOrderController() throws SQLException {
     }
 
-    //save new customer and order to db and close window
+
     @FXML
     public void saveNewCustomerAndOrder() throws SQLException {
         Customer customer = new Customer(FirstnamnField.getText(), LastnamnField.getText(), emailField.getText(), Integer.parseInt(PhoneField.getText()));

@@ -3,7 +3,6 @@ package com.codeforpizza.robcomgui;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class OrderService {
 
@@ -21,21 +20,6 @@ public class OrderService {
     public void closeConnection() throws SQLException {
         db.closeConnection();
     }
-
-    public boolean checkOrderExist(int id) throws SQLException {
-        checkIfConnection();
-        boolean exists = db.checkIfOrderExist(id);
-        closeConnection();
-        return exists;
-    }
-
-    public boolean checkOrdersExist(Customer customer) throws SQLException {
-        checkIfConnection();
-        boolean exists = db.checkOrdersExist(customer);
-        closeConnection();
-        return exists;
-    }
-
 
     public void create(Customer customer, Order order) throws SQLException {
         checkIfConnection();
@@ -66,27 +50,6 @@ public class OrderService {
     public ObservableList<Order> readAllOrders() throws SQLException {
         checkIfConnection();
         ObservableList<Order> orders = db.readAllOrders();
-        closeConnection();
-        return orders;
-    }
-
-    public ArrayList<Order> searchByFabric(String fabric) throws SQLException {
-        checkIfConnection();
-        ArrayList <Order> orders = db.searchByFabric(fabric);
-        closeConnection();
-        return orders;
-    }
-
-    public ArrayList<Order> searchByDate(String date) throws SQLException {
-        checkIfConnection();
-        ArrayList <Order> orders = db.searchByDate(date);
-        closeConnection();
-        return orders;
-    }
-
-    public ArrayList<Order> searchByProduct(String product) throws SQLException {
-        checkIfConnection();
-        ArrayList <Order> orders = db.searchByProduct(product);
         closeConnection();
         return orders;
     }

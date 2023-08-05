@@ -10,18 +10,14 @@ import java.sql.SQLException;
 
 public class Main extends Application {
 
-    OrderService orderService = new OrderService();
-
-
-
-    public Main() throws SQLException {
+    public Main() {
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Rob & Co. - Customer and Order Management System ");
+        stage.setTitle("Rob & Co. - Kund och Orderhantering ");
         stage.setScene(scene);
         stage.show();
     }

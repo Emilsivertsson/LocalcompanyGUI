@@ -176,9 +176,10 @@ public class MainWindowController {
         AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
         allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
         allOrdersForSelectedController.initialize();
+
         stage.show();
 
-        //TODO not working
+
     }
 
 
