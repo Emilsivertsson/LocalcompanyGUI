@@ -90,4 +90,12 @@ public class OrderService {
         closeConnection();
         return orders;
     }
+
+    public ObservableList<Order> search(String searchForWhat, String searchFor) throws SQLException {
+        checkIfConnection();
+        ObservableList<Order> orders = db.search(searchForWhat, searchFor);
+        closeConnection();
+        return orders;
+    }
+
 }

@@ -2,9 +2,13 @@ package com.codeforpizza.robcomgui;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class SearchForOrderController {
@@ -16,7 +20,7 @@ public class SearchForOrderController {
     private TextField searchField;
 
     @FXML
-    private ChoiceBox <String> SearchForWhatChoice = new ChoiceBox<>();
+    private ChoiceBox<String> SearchForWhatChoice = new ChoiceBox<>();
 
     @FXML
     private TableView<Order> allOrdersTabel;
@@ -68,16 +72,42 @@ public class SearchForOrderController {
         allOrdersTabel.setItems(orders);
     }
 
-    public void search(){
+    //search for a order by using the search field and the choicebox
+    //print the result to the TableView
+    public void search() throws SQLException {
+        String searchForWhat = SearchForWhatChoice.getValue();
+        String searchFor = searchField.getText();
+        ObservableList<Order> orders = orderService.search(searchForWhat, searchFor);
+
+        idColum.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        orderdByColum.setCellValueFactory(new PropertyValueFactory<>("orderdBy"));
+        dateColum.setCellValueFactory(new PropertyValueFactory<>("date"));
+        fabricColum.setCellValueFactory(new PropertyValueFactory<>("fabric"));
+        productColum.setCellValueFactory(new PropertyValueFactory<>("product"));
+        allOrdersTabel.setItems(orders);
 
     }
 
-    public void updateOrder(){
+    public void updateOrder() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateOrder.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("update order");
+        stage.setScene(scene);
+
+        UpdateOrderController updateOrderController = fxmlLoader.getController();
+        updateOrderController.setOrder(allOrdersTabel.getSelectionModel().getSelectedItem());
+        updateOrderController.initialize();
+        stage.show();
 
     }
 
-    public void deleteOrder(){
-
+    //delete the order the user has chosen.
+    public void deleteOrder() throws SQLException {
+        Order selectedOrder = allOrdersTabel.getSelectionModel().getSelectedItem();
+        orderService.delete(selectedOrder.getOrderId());
+        setAllOrders();
     }
 }
+
 

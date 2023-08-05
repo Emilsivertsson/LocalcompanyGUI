@@ -35,7 +35,7 @@ public class NewOrderController {
         if (selectedCustomer != null) {
             customerNameLabel.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {
-            customerNameLabel.setText("No customer selected.");
+            customerNameLabel.setText("Ingen kund vald");
         }
     }
 

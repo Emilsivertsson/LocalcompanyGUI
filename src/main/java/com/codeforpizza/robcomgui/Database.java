@@ -570,4 +570,24 @@ public class Database {
         }
         return null;
     }
+
+    public ObservableList<Order> search(String searchForWhat, String searchFor) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE " + searchForWhat + " LIKE ?");
+            stmt.setString(1, "%" + searchFor + "%");
+            ResultSet rs = stmt.executeQuery();
+            ObservableList<Order> orders = FXCollections.observableArrayList();
+            while (rs.next()) {
+                orders.add(new Order(rs.getInt("orderId")
+                        , rs.getInt("orderdBy")
+                        , rs.getString("date")
+                        , rs.getString("fabric")
+                        , rs.getString("product")));
+            }
+            return orders;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

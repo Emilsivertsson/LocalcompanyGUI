@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AllOrdersForSelectedController {
@@ -54,30 +55,47 @@ public class AllOrdersForSelectedController {
 
     public void initialize() throws SQLException {
         setSelectedCustomer(selectedCustomer);
+        setAllOrders(selectedCustomer);
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {
-            customerNameLable.setText("No customer selected");
+            customerNameLable.setText("Ingen kund");
         }
-        ObservableList<Order> orders = orderService.read(selectedCustomer.getCustomerId());
 
-        IdColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderId"));
-        dateColum.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
-        fabricColum.setCellValueFactory(new PropertyValueFactory<Order, String>("fabric"));
-        productColum.setCellValueFactory(new PropertyValueFactory<Order, String>("product"));
-        allOrdersTable.setItems(orders);
+    }
+
+    private void setAllOrders(Customer selectedCustomer) throws SQLException {
+        ObservableList<Order> allOrders = orderService.read(selectedCustomer.getCustomerId());
+
+        IdColum.setCellValueFactory(new PropertyValueFactory<>("id"));
+        dateColum.setCellValueFactory(new PropertyValueFactory<>("date"));
+        fabricColum.setCellValueFactory(new PropertyValueFactory<>("fabric"));
+        productColum.setCellValueFactory(new PropertyValueFactory<>("product"));
+        allOrdersTable.setItems(allOrders);
     }
 
     public void setSelectedCustomer(Customer selectedCustomer) {
         this.selectedCustomer = selectedCustomer;
     }
 
-    public void updateOrder() throws SQLException {
-        Order selectedOrder = allOrdersTable.getSelectionModel().getSelectedItem();
+    public void updateOrder() throws SQLException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateOrder.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Uppdatera Order");
+        stage.setScene(scene);
+
+        UpdateOrderController controller = fxmlLoader.getController();
+        controller.setOrder(allOrdersTable.getSelectionModel().getSelectedItem());
+        controller.initialize();
+        stage.show();
+
     }
 
     public void deleteOrder() throws SQLException {
         Order selectedOrder = allOrdersTable.getSelectionModel().getSelectedItem();
+        orderService.delete(selectedOrder.getOrderId());
+        setAllOrders(selectedCustomer);
     }
 
     @FXML
@@ -85,7 +103,7 @@ public class AllOrdersForSelectedController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("NewOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("New Order");
+        stage.setTitle("Ny Order");
         stage.setScene(scene);
 
 

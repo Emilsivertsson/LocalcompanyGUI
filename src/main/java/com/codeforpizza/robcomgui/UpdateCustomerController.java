@@ -43,7 +43,7 @@ public class UpdateCustomerController {
             newEmailLabel.setPromptText(selectedCustomer.getEmail());
             }
         else{
-            newFirstNameLabel.setPromptText("No customer selected");
+            newFirstNameLabel.setPromptText("Ingen kund vald");
         }
     }
 

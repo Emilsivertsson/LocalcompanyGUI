@@ -75,7 +75,7 @@ public class MainWindowController {
         SearchForWhatChoiceBox.setValue("firstname");
     }
 
-    //print all customers in db to TableView
+
     @FXML
     public void printAllCustomers() throws SQLException {
         ObservableList<Customer> customers = customerService.readAllCustomers();
@@ -91,29 +91,24 @@ public class MainWindowController {
 
     }
 
-    //open a new window to add a new customer and order
+
     @FXML
     public void addNewCustomerAndOrder() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("NewCustomerAndOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("New Customer and Order ");
+        stage.setTitle("Ny kund och order");
         stage.setScene(scene);
         stage.show();
 
     }
 
-    //open a new window to add a new order
-
-
-    //delete a customer
     @FXML
     public void deleteCustomer() throws SQLException {
         Customer customer = allCustomersTable.getSelectionModel().getSelectedItem();
         customerService.delete(customer.getPhone());
         printAllCustomers();
-        //todo
-        //add a confirmation window
+        //TODO add an alert window to confirm the delete
     }
 
     //open a new window and update selected customer
@@ -122,7 +117,7 @@ public class MainWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateCustomer.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("Update Customer");
+        stage.setTitle("Uppdatera kund");
         stage.setScene(scene);
 
         Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
@@ -157,7 +152,7 @@ public class MainWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SearchForOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("Search for Order");
+        stage.setTitle("Sök Order");
         stage.setScene(scene);
 
         stage.show();
@@ -174,13 +169,12 @@ public class MainWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllOrdersForSelected.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("All Orders");
+        stage.setTitle("Alla Ordrar");
         stage.setScene(scene);
 
         Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
         AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
         allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
-
         allOrdersForSelectedController.initialize();
         stage.show();
 
@@ -193,7 +187,7 @@ public class MainWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllEmails.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        stage.setTitle("All Emails");
+        stage.setTitle("Alla Emails");
         stage.setScene(scene);
 
         stage.show();
