@@ -65,6 +65,8 @@ public class MainWindowController {
     @FXML
     private TableColumn<Customer, Integer> phoneColum;
 
+    Customer selectedCustomer;
+
     public MainWindowController() throws SQLException {
 
     }
@@ -105,8 +107,8 @@ public class MainWindowController {
 
     @FXML
     public void deleteCustomer() throws SQLException {
-        Customer customer = allCustomersTable.getSelectionModel().getSelectedItem();
-        customerService.delete(customer.getPhone());
+        selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
+        customerService.delete(selectedCustomer.getPhone());
         printAllCustomers();
         //TODO add an alert window to confirm the delete
     }
@@ -120,7 +122,7 @@ public class MainWindowController {
         stage.setTitle("Uppdatera kund");
         stage.setScene(scene);
 
-        Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
+        selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
         UpdateCustomerController updateCustomerController = fxmlLoader.getController();
         updateCustomerController.setSelectedCustomer(selectedCustomer);
 
@@ -172,14 +174,13 @@ public class MainWindowController {
         stage.setTitle("Alla Ordrar");
         stage.setScene(scene);
 
-        Customer selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
+        selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
         AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
         allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
         allOrdersForSelectedController.initialize();
+        //allOrdersForSelectedController.printAllOrders(selectedCustomer);
 
         stage.show();
-
-
     }
 
 

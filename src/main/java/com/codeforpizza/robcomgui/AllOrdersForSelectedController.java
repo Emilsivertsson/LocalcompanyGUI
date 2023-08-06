@@ -46,14 +46,14 @@ public class AllOrdersForSelectedController {
     @FXML
     private Button newOrderButton;
 
-    private Customer selectedCustomer;
+    Customer selectedCustomer;
 
     public AllOrdersForSelectedController() throws SQLException {
     }
 
     public void initialize() throws SQLException {
-        //setAllOrders(selectedCustomer);
-        printAllOrders(selectedCustomer);
+        //TODO if this is commented out, it works and the customer name is displayed, ergo not null
+        //printAllOrders(selectedCustomer);
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
         } else {
@@ -62,11 +62,11 @@ public class AllOrdersForSelectedController {
 
     }
 
-    //TODO not working
+    //TODO not working , if this is called the customer is null
     public void printAllOrders(Customer selectedCustomer) throws SQLException {
         ObservableList<Order> allOrders = orderService.read(selectedCustomer.getCustomerId());
 
-        IdColum.setCellValueFactory(new PropertyValueFactory<>("id"));
+        IdColum.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         dateColum.setCellValueFactory(new PropertyValueFactory<>("date"));
         fabricColum.setCellValueFactory(new PropertyValueFactory<>("fabric"));
         productColum.setCellValueFactory(new PropertyValueFactory<>("product"));
