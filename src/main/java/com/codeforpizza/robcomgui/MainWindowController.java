@@ -165,7 +165,7 @@ public class MainWindowController {
         printAllCustomers();
     }
 
-    //open a new window and shows all orders of the selected customer
+    //TODO this works from this end. Need to fix the other end
     @FXML
     public void showAllOrders() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllOrdersForSelected.fxml"));
@@ -178,6 +178,8 @@ public class MainWindowController {
         AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
         allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
         allOrdersForSelectedController.initialize();
+
+        //TODO this line prints to the other window, but it dont set the selected customer in the next window
         //allOrdersForSelectedController.printAllOrders(selectedCustomer);
 
         stage.show();
