@@ -31,8 +31,8 @@ public class UpdateOrderController {
 
     public UpdateOrderController() throws SQLException {
     }
-
-    public void initialize() {
+    public void initialize(Customer customer) {
+        setCustomer(customer);
         setOrder(order);
         customerNameLabel.setText(customer.getFirstName() + " " + customer.getLastName());
     }

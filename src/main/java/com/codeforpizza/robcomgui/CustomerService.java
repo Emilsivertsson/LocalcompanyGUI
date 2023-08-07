@@ -77,4 +77,10 @@ public class CustomerService {
         closeConnection();
         return customers;
     }
+    public Customer readById(int id) throws SQLException {
+        checkIfConnection();
+        Customer customer = db.readCustomerById(id);
+        closeConnection();
+        return customer;
+    }
 }
