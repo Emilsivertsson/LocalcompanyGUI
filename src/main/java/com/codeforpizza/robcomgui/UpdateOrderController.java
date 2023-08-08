@@ -13,8 +13,6 @@ public class UpdateOrderController {
 
     OrderService orderService = new OrderService();
 
-    CustomerService customerService = new CustomerService();
-
     @FXML
     private Button updateOrderButton;
 

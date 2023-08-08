@@ -1,7 +1,6 @@
 package com.codeforpizza.robcomgui;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -116,7 +115,6 @@ public class AllOrdersForSelectedController {
         Stage stage = new Stage();
         stage.setTitle("Ny Order");
         stage.setScene(scene);
-
 
         NewOrderController controller = fxmlLoader.getController();
 

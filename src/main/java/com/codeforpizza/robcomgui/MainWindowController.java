@@ -88,10 +88,7 @@ public class MainWindowController {
         lastNameColum.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         phoneColum.setCellValueFactory(new PropertyValueFactory<>("phone"));
         mailColum.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-
         allCustomersTable.setItems(customers);
-
     }
 
 
@@ -122,9 +119,8 @@ public class MainWindowController {
         }
     }
 
-    //open a new window and update selected customer
     @FXML
-    public void updateCustomer() throws SQLException, IOException {
+    public void updateCustomer() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateCustomer.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -140,8 +136,6 @@ public class MainWindowController {
 
     }
 
-    //search for a customer by using the search field and the choicebox
-    //print the result to the TableView
     @FXML
     public void searchForCustomer() throws SQLException {
         String searchForWhat = SearchForWhatChoiceBox.getValue();
@@ -157,7 +151,7 @@ public class MainWindowController {
         allCustomersTable.setItems(customers);
     }
 
-    //open new window and search for an order
+
     @FXML
     public void searchForOrder() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SearchForOrder.fxml"));
