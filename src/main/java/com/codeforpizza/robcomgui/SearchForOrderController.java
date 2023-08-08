@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class SearchForOrderController {
 
@@ -104,8 +105,18 @@ public class SearchForOrderController {
     //delete the order the user has chosen.
     public void deleteOrder() throws SQLException {
         Order selectedOrder = allOrdersTabel.getSelectionModel().getSelectedItem();
-        orderService.delete(selectedOrder.getOrderId());
-        setAllOrders();
+
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Varning");
+        confirmationDialog.setContentText("Är du säkert på att du vill ta bort denna ordern?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            orderService.delete(selectedOrder.getOrderId());
+            setAllOrders();
+        }
+
     }
 }
 

@@ -30,4 +30,5 @@
     <Button fx:id="updateOrderButton" layoutX="24.0" layoutY="113.0" mnemonicParsing="false" onAction="#updateOrder" text="Uppdatera Order" />
     <Button fx:id="deleteOrderButton" layoutX="33.0" layoutY="154.0" mnemonicParsing="false" onAction="#deleteOrder" text="Ta bort Order" />
     <Button fx:id="newOrderButton" layoutX="45.0" layoutY="71.0" mnemonicParsing="false" onAction="#addNewOrder" text="Ny Order" />
+   <Button fx:id="updateListButton" layoutX="29.0" layoutY="262.0" mnemonicParsing="false" onAction="#updateList" text="Uppdatera lista" />
 </AnchorPane>

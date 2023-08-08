@@ -36,10 +36,10 @@ public class UpdateCustomerController {
     public void initialize() {
         setSelectedCustomer(selectedCustomer);
         if(selectedCustomer != null){
-            newFirstNameLabel.setPromptText(selectedCustomer.getFirstName());
-            newLastNameLabel.setPromptText(selectedCustomer.getLastName());
-            newPhoneLabel.setPromptText(String.valueOf(selectedCustomer.getPhone()));
-            newEmailLabel.setPromptText(selectedCustomer.getEmail());
+            newFirstNameLabel.setText(selectedCustomer.getFirstName());
+            newLastNameLabel.setText(selectedCustomer.getLastName());
+            newEmailLabel.setText(selectedCustomer.getEmail());
+            newPhoneLabel.setText(String.valueOf(selectedCustomer.getPhone()));
             }
         else{
             newFirstNameLabel.setPromptText("Ingen kund vald");
@@ -51,49 +51,29 @@ public class UpdateCustomerController {
     }
 
 
-    //TODO not working
     public void updateCustomer() throws SQLException {
-        String newFirstNameText = newFirstNameLabel.getText();
-        if (!newFirstNameText.isEmpty() && !newFirstNameText.equals(selectedCustomer.getFirstName())) {
-            selectedCustomer.setFirstName(newFirstNameText);
-        }
-        String newLastNameText = newLastNameLabel.getText();
-        if (!newLastNameText.isEmpty() && !newLastNameText.equals(selectedCustomer.getLastName())) {
-            selectedCustomer.setLastName(newLastNameText);
-        }
-        String newEmailText = newEmailLabel.getText();
-        if (!newEmailText.isEmpty() && !newEmailText.equals(selectedCustomer.getEmail())) {
-            selectedCustomer.setEmail(newEmailText);
-        }
-        String newPhoneText = newPhoneLabel.getText();
-        if (!newPhoneText.isEmpty() && !newPhoneText.equals(String.valueOf(selectedCustomer.getPhone()))) {
-            selectedCustomer.setPhone(Integer.parseInt(newPhoneText));
-        }
-        if (customerService.checkCustomerExistByEmail(newEmailText)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Email redan i användning");
-            alert.setHeaderText(null);
-            alert.setContentText("Det här Email finns redan");
+        if (newFirstNameLabel.getText().isEmpty() || newLastNameLabel.getText().isEmpty() || newPhoneLabel.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Fältet kan inte vara tomt");
             alert.showAndWait();
+        } else if (customerService.checkCustomerExistByPhone(Integer.parseInt(newPhoneLabel.getText())) && !selectedCustomer.getFirstName().equals(newFirstNameLabel.getText())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Telefonnummer finns redan");
+            alert.showAndWait();
+        } else if (customerService.checkCustomerExistByEmail(newEmailLabel.getText()) && !selectedCustomer.getFirstName().equals(newFirstNameLabel.getText())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Email finns redan");
+            alert.showAndWait();
+        } else {
+            selectedCustomer.setFirstName(newFirstNameLabel.getText());
+            selectedCustomer.setLastName(newLastNameLabel.getText());
+            selectedCustomer.setEmail(newEmailLabel.getText());
+            selectedCustomer.setPhone(Integer.parseInt(newPhoneLabel.getText()));
+            customerService.update(selectedCustomer);
+            updateButton.getScene().getWindow().hide();
         }
-        else {
-            if (newPhoneText.isEmpty() || !newPhoneText.equals(String.valueOf(selectedCustomer.getPhone()))) {
-                if (customerService.checkCustomerExistByPhone(Integer.parseInt(newPhoneText))) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Telefonnummer redan i användning");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Det här telefonnummer finns redan");
-                    alert.showAndWait();
-                } else {
-                    customerService.update(selectedCustomer);
-                    updateButton.getScene().getWindow().hide();
-                }
-            } else {
-                customerService.update(selectedCustomer);
-                updateButton.getScene().getWindow().hide();
-            }
-
-        }
-
     }
 }

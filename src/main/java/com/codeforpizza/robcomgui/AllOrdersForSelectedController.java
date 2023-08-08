@@ -5,15 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class AllOrdersForSelectedController {
 
@@ -46,14 +44,16 @@ public class AllOrdersForSelectedController {
     @FXML
     private Button newOrderButton;
 
+    @FXML
+    private Button updateListButton;
+
     Customer selectedCustomer;
 
     public AllOrdersForSelectedController() throws SQLException {
     }
 
     public void initialize() throws SQLException {
-        //TODO if this is commented out, it works and the customer name is displayed, ergo not null
-        //printAllOrders(selectedCustomer);
+
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
             printAllOrders(selectedCustomer);
@@ -63,7 +63,10 @@ public class AllOrdersForSelectedController {
 
     }
 
-    //TODO not working , if this is called the customer is null
+    public void updateList () throws SQLException {
+        printAllOrders(selectedCustomer);
+    }
+
     public void printAllOrders(Customer selectedCustomer) throws SQLException {
         ObservableList<Order> allOrders = orderService.read(selectedCustomer.getCustomerId());
 
@@ -92,10 +95,19 @@ public class AllOrdersForSelectedController {
         printAllOrders(selectedCustomer);
     }
 
+
     public void deleteOrder() throws SQLException {
         Order selectedOrder = allOrdersTable.getSelectionModel().getSelectedItem();
-        orderService.delete(selectedOrder.getOrderId());
-        printAllOrders(selectedCustomer);
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Varning");
+        confirmationDialog.setContentText("Är du säkert på att du vill ta bort denna order?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            orderService.delete(selectedOrder.getOrderId());
+            printAllOrders(selectedCustomer);
+        }
     }
 
     public void addNewOrder() throws Exception {

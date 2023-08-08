@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class MainWindowController {
 
@@ -108,9 +109,17 @@ public class MainWindowController {
     @FXML
     public void deleteCustomer() throws SQLException {
         selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
-        customerService.delete(selectedCustomer.getPhone());
-        printAllCustomers();
-        //TODO add an alert window to confirm the delete
+
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Varning");
+        confirmationDialog.setContentText("Är du säkert på att du vill ta bort kunden?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            customerService.delete(selectedCustomer.getPhone());
+            printAllCustomers();
+        }
     }
 
     //open a new window and update selected customer
@@ -165,7 +174,7 @@ public class MainWindowController {
         printAllCustomers();
     }
 
-    //TODO this works from this end. Need to fix the other end
+
     @FXML
     public void showAllOrders() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllOrdersForSelected.fxml"));
@@ -178,9 +187,7 @@ public class MainWindowController {
         AllOrdersForSelectedController allOrdersForSelectedController = fxmlLoader.getController();
         allOrdersForSelectedController.setSelectedCustomer(selectedCustomer);
         allOrdersForSelectedController.initialize();
-
-        //TODO this line prints to the other window, but it dont set the selected customer in the next window
-        //allOrdersForSelectedController.printAllOrders(selectedCustomer);
+        allOrdersForSelectedController.printAllOrders(selectedCustomer);
 
         stage.show();
     }

@@ -6,10 +6,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class UpdateOrderController {
 
     OrderService orderService = new OrderService();
+
+    CustomerService customerService = new CustomerService();
+
     @FXML
     private Button updateOrderButton;
 
@@ -25,42 +30,56 @@ public class UpdateOrderController {
     @FXML
     private Label customerNameLabel;
 
-    private Customer customer;
+    Customer SelectedCustomer;
 
-    private Order order;
+    Order order;
 
     public UpdateOrderController() throws SQLException {
     }
+
+
     public void initialize(Customer customer) {
-        setCustomer(customer);
+        setSelectedCustomer(customer);
         setOrder(order);
-        customerNameLabel.setText(customer.getFirstName() + " " + customer.getLastName());
+        customerNameLabel.setText(SelectedCustomer.getFirstName() + " " + SelectedCustomer.getLastName());
+        newDateField.setText(order.getDate());
+        newProductField.setText(order.getProduct());
+        newFabricField.setText(order.getFabric());
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setSelectedCustomer(Customer selectedCustomer) {
+        this.SelectedCustomer = selectedCustomer;
     }
 
     public void setOrder(Order order) {
         this.order = order;
     }
 
-    //print orders variables as promts to textfields and update order with new values if entered
     public void updateOrder() throws SQLException {
-        if (newDateField.getText() != null) {
-            order.setDate(newDateField.getText());
+        if (newFabricField.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Fabric");
+            alert.setHeaderText("Tyg-nummer kan inte vara tomt");
+            alert.showAndWait();
+        } else {
+            if (newDateField.getText().isEmpty()) {
+                order.setDate(order.getDate());
+            } else {
+                order.setDate(newDateField.getText());
+            }
+            if (newProductField.getText().isEmpty()) {
+                order.setProduct(order.getProduct());
+            } else {
+                order.setProduct(newProductField.getText());
+            }
+            if (newFabricField.getText().isEmpty()) {
+                order.setFabric(order.getFabric());
+            } else {
+                order.setFabric(newFabricField.getText());
+            }
+            orderService.updateOrder(order);
+            updateOrderButton.getScene().getWindow().hide();
         }
-        if (newProductField.getText() != null) {
-            order.setProduct(newProductField.getText());
-        }
-        if (newFabricField.getText() != null) {
-            order.setFabric(newFabricField.getText());
-        }
-
-        orderService.updateOrder(order);
-
-        updateOrderButton.getScene().getWindow();
-
     }
 
 
