@@ -117,6 +117,37 @@ public class Database {
         }
     }
 
+    public Customer readCustomerById(int id) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE customerId = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Customer customer = new Customer(rs.getInt("customerId")
+                    , rs.getString("firstname")
+                    , rs.getString("lastname")
+                    , rs.getString("email")
+                    , rs.getInt("phone"));
+
+            PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
+            stmt2.setInt(1, customer.getCustomerId());
+            ResultSet rs2 = stmt2.executeQuery();
+            ArrayList<Order> orders = new ArrayList<>();
+            while (rs2.next()) {
+                orders.add(new Order(rs2.getInt("orderId")
+                        , rs2.getInt("orderdBy")
+                        , rs2.getString("date")
+                        , rs2.getString("fabric")
+                        , rs2.getString("product")));
+            }
+            customer.setOrders(orders);
+
+            return customer;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 
     public Customer readOneCustomerByPhone(int phone) throws SQLException {
         try {

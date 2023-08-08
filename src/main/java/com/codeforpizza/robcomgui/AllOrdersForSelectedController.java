@@ -56,6 +56,7 @@ public class AllOrdersForSelectedController {
         //printAllOrders(selectedCustomer);
         if (selectedCustomer != null) {
             customerNameLable.setText(selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
+            printAllOrders(selectedCustomer);
         } else {
             customerNameLable.setText("Ingen kund");
         }
@@ -86,7 +87,7 @@ public class AllOrdersForSelectedController {
 
         UpdateOrderController controller = fxmlLoader.getController();
         controller.setOrder(allOrdersTable.getSelectionModel().getSelectedItem());
-        controller.initialize();
+        controller.initialize(selectedCustomer);
         stage.show();
         printAllOrders(selectedCustomer);
     }

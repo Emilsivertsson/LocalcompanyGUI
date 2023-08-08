@@ -86,7 +86,7 @@ public class SearchForOrderController {
 
     }
 
-    public void updateOrder() throws IOException {
+    public void updateOrder() throws IOException, SQLException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -95,7 +95,8 @@ public class SearchForOrderController {
 
         UpdateOrderController updateOrderController = fxmlLoader.getController();
         updateOrderController.setOrder(allOrdersTabel.getSelectionModel().getSelectedItem());
-        updateOrderController.initialize();
+
+        updateOrderController.initialize(customerService.readById(allOrdersTabel.getSelectionModel().getSelectedItem().getOrderdBy()));
         stage.show();
 
     }
