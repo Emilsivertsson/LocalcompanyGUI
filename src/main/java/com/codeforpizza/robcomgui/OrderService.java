@@ -3,6 +3,7 @@ package com.codeforpizza.robcomgui;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 public class OrderService {
 
@@ -61,4 +62,10 @@ public class OrderService {
         return orders;
     }
 
+    public Collection<Object> readAllOrdersForCustomer(Customer customer) throws SQLException {
+        checkIfConnection();
+        Collection<Object> orders = db.readAllOrdersForCustomer(customer);
+        closeConnection();
+        return orders;
+    }
 }

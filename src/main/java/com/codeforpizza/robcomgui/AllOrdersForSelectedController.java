@@ -81,6 +81,14 @@ public class AllOrdersForSelectedController {
     }
 
     public void updateOrder() throws SQLException, IOException {
+        if(allOrdersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen order vald");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -96,6 +104,14 @@ public class AllOrdersForSelectedController {
 
 
     public void deleteOrder() throws SQLException {
+        if(allOrdersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen order vald");
+            alert.showAndWait();
+            return;
+        }
+
         Order selectedOrder = allOrdersTable.getSelectionModel().getSelectedItem();
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Varning");

@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class MainWindowController {
 
+    public Button graphButton;
     CustomerService customerService = new CustomerService();
 
     @FXML
@@ -105,6 +106,14 @@ public class MainWindowController {
 
     @FXML
     public void deleteCustomer() throws SQLException {
+        if(allCustomersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen kund vald");
+            alert.showAndWait();
+            return;
+        }
+
         selectedCustomer = allCustomersTable.getSelectionModel().getSelectedItem();
 
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -121,6 +130,14 @@ public class MainWindowController {
 
     @FXML
     public void updateCustomer() throws IOException {
+        if(allCustomersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen kund vald");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateCustomer.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -171,6 +188,14 @@ public class MainWindowController {
 
     @FXML
     public void showAllOrders() throws Exception {
+        if(allCustomersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen kund vald");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AllOrdersForSelected.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -193,6 +218,16 @@ public class MainWindowController {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setTitle("Alla Emails");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void showGraph() throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("OrdersPerCustomerGraph.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Graf");
         stage.setScene(scene);
 
         stage.show();

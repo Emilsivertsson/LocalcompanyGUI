@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codeforpizza.robcomgui.OrdersPerCustomerController">
+   <children>
+      <BarChart fx:id="barChart" layoutX="27.0" layoutY="28.0" title="Ordrar per kund">
+        <xAxis>
+          <CategoryAxis fx:id="barchartCatA" label="Antal ordrar" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="barChartNumA" label="Antal kunder" lowerBound="1.0" minorTickCount="1" minorTickLength="0.0" side="LEFT" tickLabelGap="1.0" tickLength="0.0" tickUnit="0.0" upperBound="50.0" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

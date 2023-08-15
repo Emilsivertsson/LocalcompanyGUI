@@ -88,6 +88,14 @@ public class SearchForOrderController {
     }
 
     public void updateOrder() throws IOException, SQLException {
+        if(allOrdersTabel.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen order vald");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
@@ -104,6 +112,14 @@ public class SearchForOrderController {
 
     //delete the order the user has chosen.
     public void deleteOrder() throws SQLException {
+        if(allOrdersTabel.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Varning");
+            alert.setHeaderText("Ingen order vald");
+            alert.showAndWait();
+            return;
+        }
+
         Order selectedOrder = allOrdersTabel.getSelectionModel().getSelectedItem();
 
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);

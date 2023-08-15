@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Database {
 
@@ -354,6 +355,26 @@ public class Database {
             stmt.setString(1, "%" + searchFor + "%");
             ResultSet rs = stmt.executeQuery();
             ObservableList<Order> orders = FXCollections.observableArrayList();
+            while (rs.next()) {
+                orders.add(new Order(rs.getInt("orderId")
+                        , rs.getInt("orderdBy")
+                        , rs.getString("date")
+                        , rs.getString("fabric")
+                        , rs.getString("product")));
+            }
+            return orders;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Collection<Object> readAllOrdersForCustomer(Customer customer) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
+            stmt.setInt(1, customer.getCustomerId());
+            ResultSet rs = stmt.executeQuery();
+            Collection<Object> orders = new ArrayList<>();
             while (rs.next()) {
                 orders.add(new Order(rs.getInt("orderId")
                         , rs.getInt("orderdBy")
