@@ -11,6 +11,6 @@ Features:
 - Add, edit, delete customers
 - Add, edit, delete orders
 - View orders by customer and update them.
-- Get a printoout of all Emails formated for a advertising campaign.
+- Get a printout of all Emails formated for a advertising campaign.
 - Graphical representation of orders by customer.
 
