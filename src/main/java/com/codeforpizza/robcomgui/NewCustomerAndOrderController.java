@@ -3,6 +3,7 @@ package com.codeforpizza.robcomgui;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -31,7 +32,7 @@ public class NewCustomerAndOrderController {
     private TextField emailField;
 
     @FXML
-    private TextField orderDateField;
+    private DatePicker orderDateField;
 
     @FXML
     private TextField fabricfield;
@@ -54,20 +55,21 @@ public class NewCustomerAndOrderController {
             alert.setTitle("Varning");
             alert.setHeaderText("Fältet kan inte vara tomt");
             alert.showAndWait();
-        } else if (customerService.checkCustomerExistByPhone(Integer.parseInt(PhoneField.getText()))) {
+        } else if (customerService.checkCustomerExistByPhone(PhoneField.getText())) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Varning");
             alert.setHeaderText("Telefonnummer finns redan");
             alert.showAndWait();
-        } else if (orderDateField.getText().isEmpty() || fabricfield.getText().isEmpty()) {
+        } else if (orderDateField.getValue().equals("") || fabricfield.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Varning");
             alert.setHeaderText("Fältet kan inte vara tomt");
             alert.showAndWait();
         } else {
-            Customer customer = new Customer(FirstnamnField.getText(), LastnamnField.getText(), emailField.getText() , Integer.parseInt(PhoneField.getText()));
+            Customer customer = new Customer(FirstnamnField.getText(), LastnamnField.getText(), emailField.getText() , PhoneField.getText());
             customerService.create(customer);
-            Order order = new Order(orderDateField.getText(), fabricfield.getText(), productField.getText());
+
+            Order order = new Order(orderDateField.getValue(), fabricfield.getText(), productField.getText());
             orderService.create(customer, order);
             saveCustomerAndOrderButton.getScene().getWindow().hide();
         }

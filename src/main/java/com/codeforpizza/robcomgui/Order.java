@@ -1,12 +1,15 @@
 package com.codeforpizza.robcomgui;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Order {
 
     private int orderId;
 
     private int orderdBy = 0;
 
-    private String date;
+    private LocalDate date;
 
     private String fabric;
 
@@ -14,14 +17,14 @@ public class Order {
 
 
 
-    public Order(String date, String fabric, String product) {
+    public Order(LocalDate date, String fabric, String product) {
         this.orderdBy = orderdBy;
         this.date = date;
         this.fabric = fabric;
         this.product = product;
     }
 
-    public Order(int orderId, int orderdBy , String date, String fabric, String product) {
+    public Order(int orderId, int orderdBy , LocalDate date, String fabric, String product) {
         this.orderId = orderId;
         this.orderdBy = orderdBy;
         this.date = date;
@@ -29,14 +32,14 @@ public class Order {
         this.product = product;
     }
 
-    public Order(int orderId, String date, String fabric, String product) {
+    public Order(int orderId, LocalDate date, String fabric, String product) {
         this.orderId = orderId;
         this.date = date;
         this.fabric = fabric;
         this.product = product;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -44,7 +47,7 @@ public class Order {
         return orderId;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

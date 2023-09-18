@@ -30,8 +30,6 @@ public class OrdersPerCustomerController {
     }
 
 
-
-    //TODO graph works, but is inverted.
     @FXML
     public void initialize() throws SQLException {
         Map<Integer, Integer> ordersCountMap = new HashMap<>();

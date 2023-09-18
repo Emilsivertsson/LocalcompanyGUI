@@ -1,6 +1,7 @@
 package com.codeforpizza.robcomgui;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -132,6 +133,11 @@ public class SearchForOrderController {
             orderService.delete(selectedOrder.getOrderId());
             setAllOrders();
         }
+
+    }
+
+    public void UpdatelOrderlist(ActionEvent actionEvent) throws SQLException {
+        setAllOrders();
 
     }
 }

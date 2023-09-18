@@ -23,9 +23,9 @@ public class OrderService {
     }
 
     public void create(Customer customer, Order order) throws SQLException {
-        checkIfConnection();
-        db.createOrder(customer, order);
-        closeConnection();
+            checkIfConnection();
+            db.createOrder(customer, order);
+            closeConnection();
     }
 
     public ObservableList<Order> read(int id) throws SQLException {
@@ -34,7 +34,6 @@ public class OrderService {
         closeConnection();
         return order;
     }
-
 
     public void delete(int id) throws SQLException {
         checkIfConnection();

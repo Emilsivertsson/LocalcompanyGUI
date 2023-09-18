@@ -30,7 +30,7 @@ public class CustomerService {
         return exists;
     }
 
-    public boolean checkCustomerExistByPhone(int phoneNumber) throws SQLException {
+    public boolean checkCustomerExistByPhone(String phoneNumber) throws SQLException {
         checkIfConnection();
         boolean exists = db.checkIfCustomerExistByPhone(phoneNumber);
         closeConnection();
@@ -51,7 +51,7 @@ public class CustomerService {
         return customers;
     }
 
-    public void delete(int phone) throws SQLException {
+    public void delete(String phone) throws SQLException {
         checkIfConnection();
         db.deleteCustomer(phone);
         closeConnection();
@@ -83,4 +83,5 @@ public class CustomerService {
         closeConnection();
         return customer;
     }
+
 }

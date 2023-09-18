@@ -1,12 +1,10 @@
 package com.codeforpizza.robcomgui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.SQLException;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Alert.AlertType;
 
 public class UpdateOrderController {
@@ -17,7 +15,7 @@ public class UpdateOrderController {
     private Button updateOrderButton;
 
     @FXML
-    private TextField newDateField;
+    private DatePicker newDateField;
 
     @FXML
     private TextField newProductField;
@@ -40,7 +38,7 @@ public class UpdateOrderController {
         setSelectedCustomer(customer);
         setOrder(order);
         customerNameLabel.setText(SelectedCustomer.getFirstName() + " " + SelectedCustomer.getLastName());
-        newDateField.setText(order.getDate());
+        newDateField.setValue(order.getDate());
         newProductField.setText(order.getProduct());
         newFabricField.setText(order.getFabric());
     }
@@ -60,10 +58,10 @@ public class UpdateOrderController {
             alert.setHeaderText("Tyg-nummer kan inte vara tomt");
             alert.showAndWait();
         } else {
-            if (newDateField.getText().isEmpty()) {
+            if (newDateField.getValue().equals("")) {
                 order.setDate(order.getDate());
             } else {
-                order.setDate(newDateField.getText());
+                order.setDate(newDateField.getValue());
             }
             if (newProductField.getText().isEmpty()) {
                 order.setProduct(order.getProduct());

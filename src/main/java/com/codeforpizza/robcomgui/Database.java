@@ -52,14 +52,14 @@ public class Database {
                 "firstname VARCHAR (50) not null ," +
                 "lastname VARCHAR (50) not null ," +
                 "email VARCHAR (150) unique," +
-                "phone INTEGER unique not null," +
+                "phone VARCHAR(50) unique not null," +
                 "orderId INTEGER," +
                 "FOREIGN KEY (orderId) REFERENCES orders (orderdBy))";
 
         String orders = "CREATE TABLE IF NOT EXISTS orders " +
                 "(orderId INTEGER PRIMARY KEY, " +
                 "orderdBy INTEGER not null , " +
-                "date VARCHAR (50)," +
+                "date LocalDate not null ," +
                 "fabric VARCHAR (50) not null ," +
                 "product VARCHAR (150))";
         try {
@@ -88,10 +88,10 @@ public class Database {
         return true;
     }
 
-    public boolean checkIfCustomerExistByPhone(int phoneNumber) {
+    public boolean checkIfCustomerExistByPhone(String phoneNumber) {
         try{
             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM customers WHERE phone = ?");
-            stmt.setInt(1, phoneNumber);
+            stmt.setString(1, phoneNumber);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -110,7 +110,7 @@ public class Database {
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
             stmt.setString(3, customer.getEmail());
-            stmt.setInt(4, customer.getPhone());
+            stmt.setString(4, customer.getPhone());
             stmt.setInt(5, customer.getCustomerId());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -127,7 +127,7 @@ public class Database {
                     , rs.getString("firstname")
                     , rs.getString("lastname")
                     , rs.getString("email")
-                    , rs.getInt("phone"));
+                    , rs.getString("phone"));
 
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
             stmt2.setInt(1, customer.getCustomerId());
@@ -136,7 +136,7 @@ public class Database {
             while (rs2.next()) {
                 orders.add(new Order(rs2.getInt("orderId")
                         , rs2.getInt("orderdBy")
-                        , rs2.getString("date")
+                        , rs2.getDate("date").toLocalDate()
                         , rs2.getString("fabric")
                         , rs2.getString("product")));
             }
@@ -150,16 +150,16 @@ public class Database {
     }
 
 
-    public Customer readOneCustomerByPhone(int phone) throws SQLException {
+    public Customer readOneCustomerByPhone(String phone) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE phone = ?");
-            stmt.setInt(1, phone);
+            stmt.setString(1, phone);
             ResultSet rs = stmt.executeQuery();
             Customer customer = new Customer(rs.getInt("customerId")
                     , rs.getString("firstname")
                     , rs.getString("lastname")
                     , rs.getString("email")
-                    , rs.getInt("phone"));
+                    , rs.getString("phone"));
 
             PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
             stmt2.setInt(1, customer.getCustomerId());
@@ -168,7 +168,7 @@ public class Database {
             while (rs2.next()) {
                 orders.add(new Order(rs2.getInt("orderId")
                         , rs2.getInt("orderdBy")
-                        , rs2.getString("date")
+                        , rs2.getDate("date").toLocalDate()
                         , rs2.getString("fabric")
                         , rs2.getString("product")));
             }
@@ -191,7 +191,7 @@ public class Database {
                         , rs.getString("firstname")
                         , rs.getString("lastname")
                         , rs.getString("email")
-                        , rs.getInt("phone")));
+                        , rs.getString("phone")));
             }
             return customers;
         } catch (SQLException e) {
@@ -199,7 +199,7 @@ public class Database {
         }
     }
 
-    public void deleteCustomer(int phoneNr) throws SQLException {
+    public void deleteCustomer(String phoneNr) throws SQLException {
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM orders WHERE orderdBy = ?");
             stmt.setInt(1, readOneCustomerByPhone(phoneNr).getCustomerId());
@@ -209,7 +209,7 @@ public class Database {
         }
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM customers WHERE phone = ?");
-            stmt.setInt(1, phoneNr);
+            stmt.setString(1, phoneNr);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
@@ -223,7 +223,7 @@ public class Database {
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
             stmt.setString(3, customer.getEmail());
-            stmt.setInt(4, customer.getPhone());
+            stmt.setString(4, customer.getPhone());
             stmt.setInt(5, customer.getCustomerId());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -237,9 +237,10 @@ public class Database {
 
     public void createOrder(Customer customer, Order order) throws SQLException {
         try {
+            Customer customerWithID = readCustomerByPhone(customer.getPhone());
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO orders (orderdBy, date, fabric, product) VALUES (?, ?, ?, ?)");
-            stmt.setInt(1, customer.getCustomerId());
-            stmt.setString(2, order.getDate());
+            stmt.setInt(1, customerWithID.getCustomerId());
+            stmt.setDate(2, Date.valueOf(order.getDate()));
             stmt.setString(3, order.getFabric());
             stmt.setString(4, order.getProduct());
             stmt.executeUpdate();
@@ -257,7 +258,7 @@ public class Database {
             ObservableList<Order> orders = FXCollections.observableArrayList();
             while (rs.next()) {
                 orders.add(new Order(rs.getInt("orderId")
-                        , rs.getString("date")
+                        , rs.getDate("date").toLocalDate()
                         , rs.getString("fabric")
                         , rs.getString("product")));
             }
@@ -276,7 +277,7 @@ public class Database {
             while (rs.next()) {
                 orders.add(new Order(rs.getInt("orderId")
                         , rs.getInt("orderdBy")
-                        , rs.getString("date")
+                        , rs.getDate("date").toLocalDate()
                         , rs.getString("fabric")
                         , rs.getString("product")));
             }
@@ -300,7 +301,7 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement("UPDATE orders SET orderdBy = ?, date = ?, fabric = ?, product = ? WHERE orderId = ?");
             stmt.setInt(1, order.getCustomerId());
-            stmt.setString(2, order.getDate());
+            stmt.setDate(2, Date.valueOf(order.getDate()));
             stmt.setString(3, order.getFabric());
             stmt.setString(4, order.getProduct());
             stmt.setInt(5, order.getOrderId());
@@ -340,7 +341,7 @@ public class Database {
                         , rs.getString("firstname")
                         , rs.getString("lastname")
                         , rs.getString("email")
-                        , rs.getInt("phone")));
+                        , rs.getString("phone")));
             }
             return customers;
         } catch (SQLException e) {
@@ -358,7 +359,7 @@ public class Database {
             while (rs.next()) {
                 orders.add(new Order(rs.getInt("orderId")
                         , rs.getInt("orderdBy")
-                        , rs.getString("date")
+                        , rs.getDate("date").toLocalDate()
                         , rs.getString("fabric")
                         , rs.getString("product")));
             }
@@ -378,11 +379,42 @@ public class Database {
             while (rs.next()) {
                 orders.add(new Order(rs.getInt("orderId")
                         , rs.getInt("orderdBy")
-                        , rs.getString("date")
+                        , rs.getDate("date").toLocalDate()
                         , rs.getString("fabric")
                         , rs.getString("product")));
             }
             return orders;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Customer readCustomerByPhone(String phone) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE phone = ?");
+            stmt.setString(1, phone);
+            ResultSet rs = stmt.executeQuery();
+            Customer customer = new Customer(rs.getInt("customerId")
+                    , rs.getString("firstname")
+                    , rs.getString("lastname")
+                    , rs.getString("email")
+                    , rs.getString("phone"));
+
+            PreparedStatement stmt2 = conn.prepareStatement("SELECT * FROM orders WHERE orderdBy = ?");
+            stmt2.setInt(1, customer.getCustomerId());
+            ResultSet rs2 = stmt2.executeQuery();
+            ArrayList<Order> orders = new ArrayList<>();
+            while (rs2.next()) {
+                orders.add(new Order(rs2.getInt("orderId")
+                        , rs2.getInt("orderdBy")
+                        , rs2.getDate("date").toLocalDate()
+                        , rs2.getString("fabric")
+                        , rs2.getString("product")));
+            }
+            customer.setOrders(orders);
+
+            return customer;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

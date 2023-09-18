@@ -2,6 +2,7 @@ package com.codeforpizza.robcomgui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -15,7 +16,7 @@ public class NewOrderController {
     private Label customerNameLabel;
 
     @FXML
-    private TextField orderDateField;
+    private DatePicker orderDateField;
 
     @FXML
     private TextField fabricField;
@@ -41,7 +42,7 @@ public class NewOrderController {
 
     @FXML
     public void saveNewOrder() throws SQLException {
-        orderService.create(selectedCustomer, new Order(orderDateField.getText(), fabricField.getText(), productField.getText()));
+        orderService.create(selectedCustomer, new Order(orderDateField.getValue(), fabricField.getText(), productField.getText()));
         saveNewOrderButton.getScene().getWindow().hide();
     }
 

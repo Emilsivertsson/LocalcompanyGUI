@@ -57,7 +57,7 @@ public class UpdateCustomerController {
             alert.setTitle("Varning");
             alert.setHeaderText("Fältet kan inte vara tomt");
             alert.showAndWait();
-        } else if (customerService.checkCustomerExistByPhone(Integer.parseInt(newPhoneLabel.getText())) && !selectedCustomer.getFirstName().equals(newFirstNameLabel.getText())) {
+        } else if (customerService.checkCustomerExistByPhone(newPhoneLabel.getText()) && !selectedCustomer.getFirstName().equals(newFirstNameLabel.getText())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Varning");
             alert.setHeaderText("Telefonnummer finns redan");
@@ -71,7 +71,7 @@ public class UpdateCustomerController {
             selectedCustomer.setFirstName(newFirstNameLabel.getText());
             selectedCustomer.setLastName(newLastNameLabel.getText());
             selectedCustomer.setEmail(newEmailLabel.getText());
-            selectedCustomer.setPhone(Integer.parseInt(newPhoneLabel.getText()));
+            selectedCustomer.setPhone(newPhoneLabel.getText());
             customerService.update(selectedCustomer);
             updateButton.getScene().getWindow().hide();
         }

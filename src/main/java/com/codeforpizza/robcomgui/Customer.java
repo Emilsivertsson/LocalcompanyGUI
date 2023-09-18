@@ -7,27 +7,27 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
-    private int phone;
+    private String phone;
     private ArrayList<Order> orders;
 
-    public Customer(String firstName, String lastName, String email, int phone) {
+    public Customer(String firstName, String lastName, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
-        if(phone <= 0){
+        if(phone.isEmpty()){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
         this.orders = new ArrayList<>();
     }
 
-    public Customer(int customerId, String firstName, String lastName, String email, int phone) {
+    public Customer(int customerId, String firstName, String lastName, String email, String phone) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
-        if(phone <= 0){
+        if(phone.isEmpty()){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
         this.orders = new ArrayList<>();
@@ -65,12 +65,12 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
-        if(phone <= 0){
+    public void setPhone(String phone) {
+        if(phone.length() <= 0){
             throw new IllegalArgumentException("Telefonnummer måste vara större än 0");
         }
         this.phone = phone;
